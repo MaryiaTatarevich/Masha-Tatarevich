@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2+</title>
+</head>
+
+<body>
+    <script>
+        let myString = prompt('Введите строку:', '');
+        if (myString === "" || myString === null) {
+            alert('Вы не ввели строку. Попробуйте заново.')
+        }
+        else {
+            removeSpace(myString)
+        }
+
+        function removeSpace(string) {
+
+            while (string.charAt(0) === ' ') {
+                string = string.slice(1) //+ ''
+            };
+            while (string.charAt(string.length - 1) === ' ') {
+                string = string.slice(0, -1) //+ ''
+            };
+            let result
+            if (string[0] !== ' ' && string.charAt(string.length - 1) !== ' ') {
+                result = `_${string}_`
+            };
+
+            return result
+        }
+
+        let myResult = removeSpace(myString)
+
+        console.log(myResult)
+
+    </script>
+</body>
+
+</html>

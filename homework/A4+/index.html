@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A4+</title>
+</head>
+
+<body>
+    <script>
+        let lastString = 'искатьтакси'
+        let i = 0;
+        
+
+        function recursion(lastString) {
+            let result
+            if (lastString[i] !== lastString [lastString.length - 1 - i]) {
+                result = 'we have a problem'
+                return result }} 
+
+            i++
+            if (i < lastString.length) {
+                recursion(lastString)
+            } else {
+                result = 'everything is ok'
+                
+
+            }
+        
+        
+        let myresult = recursion(lastString)
+        console.log(myresult);
+    </script>
+
+</body>
+
+</html>

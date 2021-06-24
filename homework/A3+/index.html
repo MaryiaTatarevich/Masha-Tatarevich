@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A3+</title>
+</head>
+
+<body>
+  <script>
+    let myString = prompt('Введите фразу:', '');
+    if (myString === "" || myString === null) {
+      alert('Вы не ввели фразу. Попробуйте заново.')
+    }
+    else {
+      palindrome(myString)
+    }
+
+    function palindrome(string) {
+
+      let sameCase = string.toLowerCase();
+      let firstString = sameCase.replace(/[^0-9a-zа-яё]/g, '');
+      let middleString = firstString.replace(/[ъь]/g, '');
+      let lastString = middleString.replace(/[ё]/g, 'е');
+
+      while (lastString.charAt(0) === lastString.charAt(lastString.length - 1) && lastString.length !== 1) {
+        lastString = lastString.slice(1) + ''
+        lastString = lastString.slice(0, -1) + ''
+      };
+      let result
+      if (lastString.length === 1 || lastString.length === "") {
+        result = 'Это палиндром'
+      } else {
+        result = 'Печально, но это не палиндром('
+      }
+      return result
+    }
+
+    let myResult = palindrome(myString);
+
+    console.log(myResult);
+
+  </script>
+</body>
+
+</html>
