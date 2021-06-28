@@ -18,14 +18,14 @@
             let result
             if (lastString[i] !== lastString [lastString.length - 1 - i]) {
                 result = 'we have a problem'
-                return result }} 
+                return result } 
 
             i++
             if (i < lastString.length) {
                 recursion(lastString)
             } else {
                 result = 'everything is ok'
-                
+                return result}
 
             }
         
