@@ -10,28 +10,39 @@
 
 <body>
     <script>
-        let lastString = 'искатьтакси'
+        let myString = prompt('Введите фразу:', '');
         let i = 0;
+        let result;
         
-
-        function recursion(lastString) {
-            let result
-            if (lastString[i] !== lastString [lastString.length - 1 - i]) {
-                result = 'we have a problem'
-                return result } 
-
-            i++
-            if (i < lastString.length) {
-                recursion(lastString)
-            } else {
-                result = 'everything is ok'
-                return result}
-
+        function recursion(string) {
+            
+            if (string[i] !== string[string.length - 1 - i]) {
+                result = 'Печально, но это не палиндром('
+                   return result
             }
-        
-        
-        let myresult = recursion(lastString)
-        console.log(myresult);
+            i++
+            if (i < string.length) {
+                recursion(string)
+            } else {
+                result = 'Это палиндром'
+            }
+            return result
+        }
+
+        if (myString === "" || myString === null) {
+             alert('Вы не ввели фразу. Попробуйте заново.')
+         }
+
+        else{    
+            let sameCase = myString.toLowerCase();
+            let firstString = sameCase.replace(/[^0-9a-zа-яё]/g, '');
+            let middleString = firstString.replace(/[ъь]/g, '');
+            let lastString = middleString.replace(/[ё]/g, 'е');
+            
+            recursion(lastString)
+
+            let myresult = recursion(lastString);
+            alert(myresult)};
     </script>
 
 </body>
