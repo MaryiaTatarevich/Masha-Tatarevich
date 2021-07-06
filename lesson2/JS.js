@@ -1,15 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    <div id = "app"></div>
-    <script>
+
+        let phones = [];
+        function getValue(){
+            const img = document.getElementById("img");
+            const brand = document.getElementById("brand");
+            const model = document.getElementById("model");
+            const price = document.getElementById("price");
+            const sale = document.getElementById("sale");
+            phones.img = img.value;
+            phones.brand = brand.value;
+            phones.model = model.value;
+            phones.price = price.value;
+            phones.sale = sale.value;
+            console.log(phones)
+        }
+
+         
         const phone = [
       {
         model: "samsung",
@@ -51,7 +56,20 @@
 
      const app = document.getElementById ("app");
      app.innerHTML = html  
-    </script>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-</html>
+ 
+
+     
+     let phones = [];
+     function getValue(){
+         const img = document.getElementById("img");
+         const brand = document.getElementById("brand");
+         const model = document.getElementById("model");
+         const price = document.getElementById("price");
+         const sale = document.getElementById("sale");
+         phones.img = img.value;
+         phones.brand = brand.value;
+         phones.model = model.value;
+         phones.price = price.value;
+         phones.sale = sale.value;
+         console.log(phones)
+     }

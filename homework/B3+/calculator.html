@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calculator.css">
+    <title>B3+</title>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <p id="input" class="input" >  </p>  
+        </div>
+        <div class="toolbar">
+            <div class="firstRow">
+                <button value="7" onclick="onDisplayNum(value)">7</button>
+                <button value="8" onclick="onDisplayNum(value)">8</button>
+                <button value="9" onclick="onDisplayNum(value)">9</button>
+                <button value="(" onclick="onDisplayNum(value)">(</button>
+                <button value=")" onclick="onDisplayNum(value)">)</button>
+            </div>
+            <div class="secondRow">
+                <button value="4" onclick="onDisplayNum(value)">4</button>
+                <button value="5" onclick="onDisplayNum(value)">5</button>
+                <button value="6" onclick="onDisplayNum(value)">6</button>
+                <button value="+" onclick="onDisplayNum(value)">+</button>
+                <button value="-" onclick="onDisplayNum(value)">-</button>
+            </div>
+            <div class="thirdRow">
+                <button value="1" onclick="onDisplayNum(value)">1</button>  
+                <button value="2" onclick="onDisplayNum(value)">2</button>  
+                <button value="3" onclick="onDisplayNum(value)">3</button>
+                <button value="*" onclick="onDisplayNum(value)">*</button>
+                <button value="/" onclick="onDisplayNum(value)">/</button>
+            </div>
+            <div class="fourthRow">
+                <button value="-" onclick="onDisplayNum(value)">+/-</button>  
+                <button value="0" onclick="onDisplayNum(value)">0</button> 
+                <button value="." onclick="onDisplayNum(value)">.</button>
+                <button value="=" onclick="onDisplayResult()">=</button>
+                <button value="C" onclick="onDisplayNum(value)">C</button>
+
+        </div>
+    </div>
+
+<script src="calculator.js"></script>   
+</body>
+</html>

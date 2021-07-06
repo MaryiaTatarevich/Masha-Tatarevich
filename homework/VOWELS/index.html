@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOWELS</title>
+</head>
+
+<body>
+    <script>
+        let newString = prompt('Введите строку на кирилице').toLowerCase();
+        function vowels(myString) {
+            let string = myString.split('');
+            let sum = 0
+            for (let i = 0; i < string.length; i++) {
+                switch (string[i]) {
+                    case 'а':
+                        sum += 1;
+                        break;
+                    case 'у':
+                        sum += 1;
+                        break;
+                    case 'о':
+                        sum += 1;
+                        break;
+                    case 'и':
+                        sum += 1;
+                        break;
+                    case 'э':
+                        sum += 1;
+                        break;
+                    case 'ы':
+                        sum += 1;
+                        break;
+                    case 'я':
+                        sum += 1;
+                        break;
+                    case 'ю':
+                        sum += 1;
+                        break;
+                    case 'е':
+                        sum += 1;
+                        break;
+                    case 'ё':
+                        sum += 1;
+                        break;
+                }
+            }
+            return sum
+        }
+
+        let myResult = vowels(newString)
+        console.log(myResult)
+
+    </script>
+
+</body>
+
+</html>
