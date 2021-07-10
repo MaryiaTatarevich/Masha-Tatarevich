@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOWELS_ARR</title>
+</head>
+<body>
+    <script>
+         let string = prompt ('Введите строку').toLowerCase();
+         let newString = string.split('');
+         let vowels = ['а', 'у', 'о', 'и', 'э', 'ы', 'я', 'ю', 'е', 'ё'];
+       
+        function methodForEach(){
+            let sum = 0;
+            newString.forEach(function (myLetter){
+            vowels.forEach(function(letter){
+                if(letter === myLetter){
+                    sum++
+                }
+            })
+        })
+        return sum
+        }
+
+        function methodFilter(){
+            let result = newString.filter(myLetter  => vowels.indexOf(myLetter) !== -1)
+            return result.length
+        }
+
+        function methodReduce(){
+            let result = newString.reduce(function(newArr, myLetter){
+                if(vowels.indexOf(myLetter) !== -1){
+                    newArr.push(myLetter)
+                }
+            return newArr;
+            }, []);
+        return result.length
+        }
+
+        let methodFirstForEach = methodForEach()
+        console.log(`Количество гласных методом forEach - ${methodFirstForEach}`);
+
+        let methodSecondFilter = methodFilter();
+        console.log(`Количество гласных методом filter - ${methodSecondFilter}`);
+
+        let methodThirdReduce = methodReduce();
+        console.log(`Количество гласных методом Reduce - ${methodThirdReduce}`);
+
+    </script>
+</body>
+</html>
