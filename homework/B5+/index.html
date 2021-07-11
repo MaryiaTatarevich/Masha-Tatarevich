@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B5+</title>
+</head>
+<body>
+    <script>
+
+        function wrap (tag){
+            function withAttributes(string, obj){
+                function withMnemonic(newStr){
+                    let mnemonicString = newStr.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;').replace("'",'&apos;');
+                    return mnemonicString
+                }
+                
+                let result =''
+                result += `<${tag} `
+                for(let k in obj)
+                result += `${k}='${withMnemonic(obj[k])}' `
+                result += `> ${withMnemonic(string)} </${tag}>`
+                
+                return result
+            }
+            return withAttributes
+        }
+
+        let wrapP = wrap('P');
+        let wrapH1 = wrap('H1');
+
+        console.log(wrapP("Однажды в студеную зимнюю пору"));
+        console.log(wrapP("Однажды в студеную зимнюю пору",{lang: 'ru'}));
+        console.log(wrapP("Однажды в <студеную> зимнюю пору"));
+        console.log(wrapH1("СТИХИ",{align: 'center', title: "M&M's"}));
+
+    </script> 
+</body>
+</html>

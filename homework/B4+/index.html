@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B4+</title>
+</head>
+<body>
+    <script>
+
+        let newResult = prompt('Введите текст');
+
+        function wrapInTag(tag){ // создали функцию, которая принимает только один параметр tag
+            function withMnemonic (myString){ //создаем другую функцию, которая принимает другой параметр и сразу же возвращаем ее 
+                let newString = myString.replace('&','&amp;').replace('<','&lt;').replace('>','&gt;').replace('"','&quot;').replace("'",'&apos;');
+                let result = `<${tag}>${newString}</${tag}>`// собираем все полученные парметры и возвращаем результат
+                return result
+            }
+            return withMnemonic
+        }
+        
+        let wrapH1 = wrapInTag('H1');// просто вызываем ф-цию передавая значение tag  и сохраняем ее в переменную 
+        let wrapP = wrapInTag('P');
+    
+        console.log(wrapH1("Вкусные M&M's"));
+        console.log(wrapP("Однажды в студеную зимнюю пору"));
+        console.log(wrapH1(newResult));
+        console.log(wrapP(newResult));
+        
+    </script>
+</body>
+</html>
