@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B6+</title>
+</head>
+
+<body>
+    <script>
+
+        let myNumber = parseFloat(prompt('Введите число', '568888934.226'));
+        let myFormat = prompt('Введите формат, по которому Вы хотите откорректировать число', '# ### ## ## ###.##');
+
+        function formatting(number, format) {
+            let commaFormatting = format.split('.') // Разбиваем формат на массив из элементов до точки и после
+            let signsAfterTheComma = commaFormatting[1].length // Находим сколько необходимо знаков после запятой
+            let newNumber = String(number.toFixed(signsAfterTheComma));//Корректируем количество знаков после запятой у введенного чис и преобразуем его в строку 
+            let commaNumber = newNumber.split('.')// разбиваем число на массив (разделитель запятая) 
+            let reverseFormat = commaFormatting[0].split('').reverse('')//Разбиваем часть до запятой в формате на массив и переворачиваем
+            let reverseNumber = commaNumber[0].split('').reverse('')//Разбиваем часть до запятой в числе на массив и переворачиваем
+
+            for (let i = 0; i <= reverseFormat.length; i++) {
+                if (reverseFormat[i] === ' ') {
+                    reverseNumber.splice(i, 0, " ")// Ставим пробел на i место,ничего не удаляем
+                }
+            }
+
+            myResult = `${reverseNumber.reverse('').join('')}.${commaNumber[1]}`// собираем все вместе 
+            return myResult
+        }
+
+
+        console.log(myNumber)
+        console.log(myFormat)
+        console.log(formatting(myNumber, myFormat))
+
+        alert(formatting(myNumber, myFormat))
+
+
+    </script>
+
+</body>
+
+</html>
