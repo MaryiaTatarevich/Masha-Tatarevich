@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROOTS</title>
+</head>
+<body>
+    <input type = button value ='корни' onclick = 'ttt()'>
+    <input type = button value = 'авто-тесты' onclick = 'squareRootsTests()'>
+    <script>
+        // function ttt(){
+        // let a = Number(prompt('Введите a'));
+        // let b = Number(prompt('Введите b'));
+        // let c = Number(prompt('Введите c'));
+
+        // let d = Math.pow(b,2) - 4*a*c; // Дискриминант 
+        // if(d<0){
+        //     alert('Корней нет ')
+        // } else if(d==0){
+        //     let x = -b/(2*a);
+        //     alert ('один корень:' + x)
+        // } else{
+        //     let x1=(-b + Math.sqrt(d))/(2*a);
+        //     let x2=(-b - Math.sqrt(d))/(2*a);
+        //     alert (`два корня:${x1} и ${x2}`);
+        // } 
+        // }
+       
+
+        function squareRoots(a,b,c){
+            let d = Math.pow(b,2) - 4*a*c;
+            if(a==0)
+            return[(-c)/b]
+            if(d<0)
+            return[]
+                if(d==0)
+                return[-b/(2*a)]
+                    let x1=(-b + Math.sqrt(d))/(2*a);
+                    let x2=(-b - Math.sqrt(d))/(2*a);
+                    return[x1,x2]
+        }
+
+        function squareRootsTests(){
+            console.log('тест 1,1,1 -> нет корней');
+            let roots = squareRoots(1,1,1);
+            console.log((roots.length==0)?'пройден': 'НЕ ПРОЙДЕН!');
+
+            console.log('тест 1,-2,-3 -> два корня 3, -1');
+            roots = squareRoots(1,-2,-3);
+            console.log(((roots.length==2) && (roots[0]==3) && (roots[1]== -1))? 'пройден': 'НЕ ПРОЙДЕН!');
+
+            console.log('тест -1,-2,15 -> два корня -5, 3');
+            roots = squareRoots(-1,-2,15);
+            console.log(((roots.length==2)&&(roots[0]==-5)&&(roots[1]==3))? 'пройден':'НЕ ПРОЙДЕН');
+
+            console.log('тест 1,12,36 -> один корень -6');
+            roots = squareRoots(1,12,36);
+            console.log(((roots.length ==1)&&(roots[0]==-6)) ? 'пройден':'НЕ ПРОЙДЕН');
+
+            console.log('тесты 0,5,-10 -> один корень 2');
+            roots = squareRoots(0,5,-10);
+            console.log(((roots.length == 1)&&(roots[0] == 2)) ? 'пройден':'НЕ ПРОЙДЕН');
+        }
+
+        function ttt(){
+        let a = Number(prompt('Введите a'));
+        let b = Number(prompt('Введите b'));
+        let c = Number(prompt('Введите c'));
+        let roots = squareRoots(a,b,c);
+            if(!roots.length)
+            alert('Корней нет!')
+            else if(roots.length==1)
+            alert(`Один корень: ${roots[0]}`);
+            else 
+            alert (`Два корня: ${roots[0]} и ${roots[1]}`)
+        }
+
+    </script>
+</body>
+</html>
