@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>DRINKS_HASH_CLASS</title>
+</head>
+<body>
+    <button onclick="enterInformation()">Ввод информации о напитке</button>
+    <button onclick="getInformation()">Получение информации о напитке</button>
+    <button onclick="deleteInformation()">Удаление информации о напитке</button>
+    <button onclick="allInformation()">Перечень всех напитков</button>
+    <div id="myCocktails"></div>
+    <script>
+        object = {}
+        class HashStorageClass {
+            addValue(key,value){
+                object[key] = value
+            }
+
+            getValue(key){
+                if(key in object){
+                return object[key]
+                } else {return false}
+            }
+
+            deleteValue(key){
+                if(!(key in object)){
+                    return false  
+                } else {return delete object[key] }
+            }
+
+            getKeys(){
+                let arr = [];
+                for (let k in object)
+                arr.push(k)
+                return arr   
+            }
+        }
+        const drinkStorage = new HashStorageClass
+
+        function enterInformation(){
+            let drinkName = prompt('Введите название напитка');
+            let drinkPropeties = prompt('Введите информацию о напитке');
+            drinkStorage.addValue(drinkName, drinkPropeties);  
+        }
+
+        function getInformation(){
+            let drinkName = prompt('Введите название напитка');
+            let getInformation  = drinkStorage.getValue(drinkName);
+            if(!getInformation){
+                console.log("No information")
+            } else {
+                console.log(getInformation)
+                }
+        }
+
+        function deleteInformation(){
+            let drinkName = prompt('Введите название напитка');
+            let deleteInformation = drinkStorage.deleteValue(drinkName);
+            if(!deleteInformation){
+                console.log ('Данного напитка нет')
+            } else (console.log('Напиток удален'))
+        }
+
+        function allInformation(){
+            let allInformation = drinkStorage.getKeys();
+            console.log(allInformation)
+            let allCocktails = document.getElementById('myCocktails');
+            
+        }             
+
+    </script>
+    
+</body>
+</html>
