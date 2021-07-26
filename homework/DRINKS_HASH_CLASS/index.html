@@ -62,6 +62,7 @@
             let drinkRecipe = document.getElementById('cocktailRecipe').value;
             let drinkAlcohol = document.getElementById('cocktailAlcohol').value;
             drinkStorage.addValue(drinkName, {drinkIngredient, drinkRecipe, drinkAlcohol});
+            alert ('Напиток добавлен')
         //     let allInputs = document.querySelectorAll("input")
         //         for (let i = 0; i <= allInputs.length; i++) {
         //         allInputs[i].value = "";
@@ -88,7 +89,7 @@
             let myResult = document.getElementById('informationResultForm');
             if(!getInformation){
                 html+=`<div>
-                       <div> Такого напитка нет </div>
+                       <div style = 'margin-left: 20px'> Такого напитка нет </div>
                        <button onclick ="closeWindow('informationResultForm')" class="btn btn-outline-dark"> Ok </button>
                        </div>`
             } else {
@@ -96,9 +97,9 @@
                 for( let k in getInformation)
                 newArray.push(getInformation[k])
                 html+=`<div> 
-                    <div>Необходимые ингредиенты: ${newArray[0]}</div>
-                    <div>Рецепт коктейля: ${newArray[1]}</div>
-                    <div>Наличие алкоголя: ${newArray[2]}</div>
+                    <div style = 'margin-left: 20px'>Необходимые ингредиенты: ${newArray[0]}</div>
+                    <div style = 'margin-left: 20px'>Рецепт коктейля: ${newArray[1]}</div>
+                    <div style = 'margin-left: 20px'>Наличие алкоголя: ${newArray[2]}</div>
                     <button onclick ="closeWindow('informationResultForm')" class="btn btn-outline-dark"> Ok </button>
                     </div>`
                 }
@@ -118,9 +119,9 @@
             let informationResultDeleteForm = document.getElementById('informationResultDeleteForm');
             html = ''
             if(!deleteInformation){
-                html += `<div><div> Данного напитка нет </div>
+                html += `<div><div style = 'margin-left: 20px'> Данного напитка нет </div>
                          <button onclick ="closeWindow('informationResultDeleteForm')" class="btn btn-outline-dark"> Ok </button></div>`
-            } else {html += `<div><div> Напиток удален </div>
+            } else {html += `<div><div style = 'margin-left: 20px'> Напиток удален </div>
                              <button onclick ="closeWindow('informationResultDeleteForm')" class="btn btn-outline-dark"> Ok </button></div>`}
             informationResultDeleteForm.innerHTML = html
             document.getElementById('informationResultDeleteForm').style.display='block';
@@ -133,7 +134,7 @@
             let myInformation = document.getElementById("formOfAllCocktails");
             let html = '';
             allInformation.forEach(function(cocktail){
-                html += `<div> ${cocktail}</div>`
+                html += `<div style = 'margin-left: 20px'> ${cocktail}</div>`
             })
             myInformation.innerHTML = html
         }   
