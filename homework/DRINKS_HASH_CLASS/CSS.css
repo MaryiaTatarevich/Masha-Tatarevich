@@ -1,0 +1,28 @@
+.btn-outline-dark{
+    margin-bottom: 10px;
+    width: 300px;
+    margin-left: 20px;
+}
+
+.information-entry-form{ 
+    display: none;
+    width: 600px;
+    border: 1px solid;
+    border-radius: 0.25rem;
+    margin-left: auto;
+    margin-right: auto  ;
+
+}
+
+.information-entry-form .form-label {
+margin-left: 20px;
+}
+
+h1{
+    margin-left: 20px;
+}
+
+.information-entry-form .btn-outline-dark{
+    width: 250px;
+}
+

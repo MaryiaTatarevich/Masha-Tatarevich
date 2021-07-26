@@ -5,74 +5,139 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="CSS.css" type="text/css" rel="stylesheet">
     <title>DRINKS_HASH_CLASS</title>
 </head>
 <body>
-    <button onclick="enterInformation()">Ввод информации о напитке</button>
-    <button onclick="getInformation()">Получение информации о напитке</button>
-    <button onclick="deleteInformation()">Удаление информации о напитке</button>
-    <button onclick="allInformation()">Перечень всех напитков</button>
-    <div id="myCocktails"></div>
+    <div>
+        <button id = "firstButton" onclick="enterInformation()" class="btn btn-outline-dark" >Ввод информации о напитке</button><br>
+        <button id = "secondButton" onclick="getCocktailInformation()" class="btn btn-outline-dark">Получение информации о напитке</button><br>
+        <button id = "thirdButton" onclick="deleteInformation()" class="btn btn-outline-dark">Удаление информации о напитке</button><br>
+        <button id = "fourthButton" onclick="allInformation()" class="btn btn-outline-dark">Перечень всех напитков</button>
+    </div>
+    <div class="information-entry-form" id="informationForm">
+        <h1>Ввод информации о напитке</h1>
+        <label class="form-label"> Название коктейля <input type="text"  id="cocktailName" class="form-control"></label><br>
+        <label class="form-label"> Необходимые ингредиенты <textarea id="cocktailIngredient" class="form-control"></textarea></label><br>
+        <label class="form-label"> Рецепт коктейля<textarea id="cocktailRecipe" class="form-control"></textarea></label><br>
+        <label class="form-label"> Алкогольный<input type="text"  id="cocktailAlcohol" class="form-control" placeholder="Да/Нет"></label><br>
+        <button onclick="addCocktail()" class="btn btn-outline-dark"> Добавить коктейль </button>
+        <button onclick="closeWindow('informationForm')" class="btn btn-outline-dark"> Закрыть </button>
+    </div>
+
+    <div class="information-entry-form" id="informationReceiptForm">
+        <h1>Получение информации о напитке</h1>
+        <label class="form-label"> Название коктейля <input type="text" id="cocktailNameToGetInform" class="form-control"></label><br>
+        <button onclick="findCocktail()" class="btn btn-outline-dark"> Найти </button>
+        <button onclick="closeWindow('informationReceiptForm')" class="btn btn-outline-dark"> Закрыть </button>
+    </div>
+
+    <div class="information-entry-form" id="informationResultForm"></div>
+
+    <div class="information-entry-form" id="informationDeletionForm">
+        <h1>Удаление информации о напитке</h1>
+        <label class="form-label"> Название коктейля <input type="text" id="cocktailNameToDeleteInform" class="form-control"></label><br>
+        <button onclick="deleteCocktail()" class="btn btn-outline-dark"> Удалить </button>
+        <button onclick="closeWindow('informationDeletionForm')" class="btn btn-outline-dark"> Закрыть </button>
+    </div>
+
+    <div class="information-entry-form" id="informationResultDeleteForm"></div>
+
+    <div class="information-entry-form" id="formOfAllInformation">
+        <h1>Перечень всех напитков</h1>
+        <div id="formOfAllCocktails"></div>
+        <button onclick="closeWindow('formOfAllInformation')" class="btn btn-outline-dark"> Закрыть </button>
+    </div>
+   
     <script>
-        object = {}
-        class HashStorageClass {
-            addValue(key,value){
-                object[key] = value
-            }
-
-            getValue(key){
-                if(key in object){
-                return object[key]
-                } else {return false}
-            }
-
-            deleteValue(key){
-                if(!(key in object)){
-                    return false  
-                } else {return delete object[key] }
-            }
-
-            getKeys(){
-                let arr = [];
-                for (let k in object)
-                arr.push(k)
-                return arr   
-            }
-        }
-        const drinkStorage = new HashStorageClass
-
+        
         function enterInformation(){
-            let drinkName = prompt('Введите название напитка');
-            let drinkPropeties = prompt('Введите информацию о напитке');
-            drinkStorage.addValue(drinkName, drinkPropeties);  
+            document.getElementById('informationForm').style.display='block'; 
+            lockButtons()
         }
 
-        function getInformation(){
-            let drinkName = prompt('Введите название напитка');
-            let getInformation  = drinkStorage.getValue(drinkName);
+        function addCocktail(){
+            let drinkName = document.getElementById('cocktailName').value;
+            let drinkIngredient = document.getElementById('cocktailIngredient').value;
+            let drinkRecipe = document.getElementById('cocktailRecipe').value;
+            let drinkAlcohol = document.getElementById('cocktailAlcohol').value;
+            drinkStorage.addValue(drinkName, {drinkIngredient, drinkRecipe, drinkAlcohol});
+        //     let allInputs = document.querySelectorAll("input")
+        //         for (let i = 0; i <= allInputs.length; i++) {
+        //         allInputs[i].value = "";
+        // };
+        
+        //let allItextarea = document.querySelectorAll("textarea")
+        //         for (let i = 0; i <= allItextarea.length; i++) {
+        //         allItextarea[i].value == ""
+        // };
+        // console.log(allInputs)
+        //     console.log(allItextarea)
+        }
+
+        function getCocktailInformation(){
+            document.getElementById('informationReceiptForm').style.display='block';
+            lockButtons()
+        }
+
+        function findCocktail(){
+            document.getElementById('informationReceiptForm').style.display='none'
+            let drinkName = document.getElementById('cocktailNameToGetInform').value;  
+            let getInformation = drinkStorage.getValue(drinkName);
+            html = ''
+            let myResult = document.getElementById('informationResultForm');
             if(!getInformation){
-                console.log("No information")
+                html+=`<div>
+                       <div> Такого напитка нет </div>
+                       <button onclick ="closeWindow('informationResultForm')" class="btn btn-outline-dark"> Ok </button>
+                       </div>`
             } else {
-                console.log(getInformation)
+                let newArray = []
+                for( let k in getInformation)
+                newArray.push(getInformation[k])
+                html+=`<div> 
+                    <div>Необходимые ингредиенты: ${newArray[0]}</div>
+                    <div>Рецепт коктейля: ${newArray[1]}</div>
+                    <div>Наличие алкоголя: ${newArray[2]}</div>
+                    <button onclick ="closeWindow('informationResultForm')" class="btn btn-outline-dark"> Ok </button>
+                    </div>`
                 }
+            myResult.innerHTML = html
+            document.getElementById('informationResultForm').style.display='block'; 
         }
 
         function deleteInformation(){
-            let drinkName = prompt('Введите название напитка');
+            document.getElementById('informationDeletionForm').style.display='block';
+            lockButtons()
+        }
+
+        function deleteCocktail(){
+            document.getElementById('informationDeletionForm').style.display='none'
+            let drinkName = document.getElementById('cocktailNameToDeleteInform').value;
             let deleteInformation = drinkStorage.deleteValue(drinkName);
+            let informationResultDeleteForm = document.getElementById('informationResultDeleteForm');
+            html = ''
             if(!deleteInformation){
-                console.log ('Данного напитка нет')
-            } else (console.log('Напиток удален'))
+                html += `<div><div> Данного напитка нет </div>
+                         <button onclick ="closeWindow('informationResultDeleteForm')" class="btn btn-outline-dark"> Ok </button></div>`
+            } else {html += `<div><div> Напиток удален </div>
+                             <button onclick ="closeWindow('informationResultDeleteForm')" class="btn btn-outline-dark"> Ok </button></div>`}
+            informationResultDeleteForm.innerHTML = html
+            document.getElementById('informationResultDeleteForm').style.display='block';
         }
 
         function allInformation(){
+            document.getElementById('formOfAllInformation').style.display='block'
+            lockButtons()
             let allInformation = drinkStorage.getKeys();
-            console.log(allInformation)
-            let allCocktails = document.getElementById('myCocktails');
-            
-        }             
-
-    </script>
-    
+            let myInformation = document.getElementById("formOfAllCocktails");
+            let html = '';
+            allInformation.forEach(function(cocktail){
+                html += `<div> ${cocktail}</div>`
+            })
+            myInformation.innerHTML = html
+        }   
+    </script>  
 </body>
+<script src="JS.js"></script>
 </html>
