@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let myEnter = '-20.2*(2+5)+1*-2*2'//'-20.2&*&(&2&+&5&)&+&1&*&-2&*&2'
+        let arrayMyEnter = myEnter.split('')
+        let newArrayMyEnter = []
+        for(let l = 0; l < arrayMyEnter.length; l++){
+            if(arrayMyEnter[l]==='*'|| arrayMyEnter[l]==='+' || arrayMyEnter[l]==='/'|| arrayMyEnter[l]==='-'|| arrayMyEnter[l]==='(' || arrayMyEnter[l]===')'){
+                newArrayMyEnter.push(arrayMyEnter[l])
+                newArrayMyEnter.splice(l, 0,"&")
+            }
+            else(newArrayMyEnter.push(arrayMyEnter[l]))
+        }
+
+
+        console.log(newArrayMyEnter)
+        // let ResultArrayMyEnter = arrayMyEnter.join("")
+        // console.log(RarrayMyEnter)
+
+
+
+
+        // let inPut = '-20.2 * ( 2 + 5 ) + 1 * -2 * 2'
+        // let arrayInPut = inPut.split(" ");
+        // console.log(arrayInPut)
+        // let numbersStack = [];//массив выхода 
+        // let symbolsStack = [];// стек операции, одет операции в стек или иассив зависит от приритета последней операции в стек
+
+        // for (let i = 0; i < arrayInPut.length; i++) {
+        //     if (!isNaN(parseFloat(arrayInPut[i]))) {//проверяем число ли элемент
+        //         numbersStack.push(arrayInPut[i]) //если число, то добавляем его в массив с числами
+        //     }
+        //     else {
+        //         switch (arrayInPut[i]) {
+        //             case '(':   
+        //                 symbolsStack.push(arrayInPut[i]);
+        //                 break;
+        //             case ')'://нужно вытолкать все знаки из стека в массив до первой открывающейся скобки и избавляемся от обеих скобок  
+        //                 if (symbolsStack.length > 1) {
+        //                     while (symbolsStack[symbolsStack.length - 1] !== '(') {
+        //                         numbersStack.push(symbolsStack.pop())
+        //                     }
+
+        //                     symbolsStack = symbolsStack.filter(function (item) {
+        //                         return item !== '('
+        //                     });
+        //                 }
+        //                 else {
+        //                     symbolsStack = symbolsStack.filter(function (item) {
+        //                         return item !== '('
+        //                     })
+        //                 }
+        //                 break;
+        //             case '+':
+        //                 if (symbolsStack.length > 0) {
+        //                     if (symbolsStack[symbolsStack.length - 1] === '/' || symbolsStack[symbolsStack.length - 1] === '*' || symbolsStack[symbolsStack.length - 1] === '-' || symbolsStack[symbolsStack.length - 1] === '+') {//если последний символ в стеке операций имеет приоритет выше, чем текущий знак, то последний знак из стека перемещаем в массив  
+        //                         numbersStack.push(symbolsStack.pop())
+        //                         symbolsStack.push(arrayInPut[i])
+        //                     }
+
+        //                     else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+        //                 }
+        //                 else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+
+        //                 break;
+        //             case '-':
+        //                 if (symbolsStack.length > 0) {
+        //                     if (symbolsStack[symbolsStack.length - 1] === '/' || symbolsStack[symbolsStack.length - 1] === '*' || symbolsStack[symbolsStack.length - 1] === '+'|| symbolsStack[symbolsStack.length - 1] === '-') {
+        //                         numbersStack.push(symbolsStack.pop())
+        //                         symbolsStack.push(arrayInPut[i])
+        //                     }
+        //                     else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+        //                 }
+        //                 else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+
+        //                 break;
+        //             case '*':
+        //             if (symbolsStack.length > 0) {
+        //                     if (symbolsStack[symbolsStack.length - 1] === '/' || symbolsStack[symbolsStack.length - 1] === '*') {
+        //                         numbersStack.push(symbolsStack.pop())
+        //                         symbolsStack.push(arrayInPut[i])
+        //                     }
+        //                     else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+        //                 }
+        //                 else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+        //                 //Если приоритет ниже, то просто добавляем элемент
+                       
+
+        //                 break;
+        //             case '/':
+        //             if (symbolsStack.length > 0) {
+        //                     if (symbolsStack[symbolsStack.length - 1] === '/' || symbolsStack[symbolsStack.length - 1] === '*') {
+        //                         numbersStack.push(symbolsStack.pop())
+        //                         symbolsStack.push(arrayInPut[i])
+        //                     }
+        //                     else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+        //                 }
+        //                 else {
+        //                     symbolsStack.push(arrayInPut[i]);
+        //                 }
+        //                 break;
+        //         }
+        //     }
+        // }
+        //  if(symbolsStack.length!==0){
+        //     for (let k = 0; k <= symbolsStack.length; k++) {
+        //     numbersStack.push(symbolsStack.pop())}
+        //  }
+
+        // console.log(numbersStack)
+        // console.log(symbolsStack)
+
+
+        // let result = []
+
+        // for (let r = 0; r < numbersStack.length; r++) {
+        //     if (numbersStack[r] === '+') {
+        //         elem1 = result.pop()
+        //         elem2 = result.pop()
+        //         result.push(elem2 + elem1)
+        //     }
+        //     else if (numbersStack[r] === '-') {
+
+        //         elem1 = result.pop()
+        //         elem2 = result.pop()
+        //         result.push(elem2 - elem1)
+        //     }
+        //     else if (numbersStack[r] === '*') {
+        //         elem1 = result.pop()
+        //         elem2 = result.pop()
+        //         result.push(elem2 * elem1)
+        //     }
+        //     else if (numbersStack[r] === '/') {
+        //         elem1 = result.pop()
+        //         elem2 = result.pop()
+        //         result.push(elem2 / elem1)
+        //     }
+        //     else {
+        //         result.push(parseFloat(numbersStack[r]))
+        //     }
+        // }
+        // console.log(result)
+
+    </script>
+</body>
+
+</html>

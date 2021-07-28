@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+</head>
+
+<body>
+    <script>
+        String.prototype.isNumeric = function () {
+            return !isNaN(parseFloat(this)) && isFinite(this);
+        }//проверяет является ли строка числовым значением
+
+        Array.prototype.clean = function () {
+            for (var i = 0; i < this.length; i++) {
+                if (this[i] === "") {
+                    this.splice(i, 1);
+                }
+            }
+            return this;
+        }// необходим для очистки массива, чтобы удалить индексы с пустыми значениями
+
+        function MathSolver() {// создаем класс
+
+            this.infixToPostfix = function (infix) {//метод
+                var outputQueue = "";
+                var operatorStack = [];
+                var operators = {
+                    "^": {
+                        precedence: 4,//приоритет
+                        associativity: "Right"//ассоциативность
+                    },
+                    "/": {
+                        precedence: 3,
+                        associativity: "Left"
+                    },
+                    "*": {
+                        precedence: 3,
+                        associativity: "Left"
+                    },
+                    "+": {
+                        precedence: 2,
+                        associativity: "Left"
+                    },
+                    "-": {
+                        precedence: 2,
+                        associativity: "Left"
+                    }
+                }
+                infix = infix.replace(/\s+/g, "");// \s - заменяет пробел, табуляцию,перевод строки на ""; + означает один или более раз;g-глобальгый
+                infix = infix.split(/([\+\-\*\/\^\(\)])/).clean();
+                for (var i = 0; i < infix.length; i++) {
+                    var token = infix[i];
+                    if (token.isNumeric()) {
+                        outputQueue += token + " ";
+                    } else if ("^*/+-".indexOf(token) !== -1) {
+                        var o1 = token;
+                        var o2 = operatorStack[operatorStack.length - 1];
+                        while ("^*/+-".indexOf(o2) !== -1 && ((operators[o1].associativity === "Left" && operators[o1].p0recedence <= operators[o2].precedence) || (operators[o1].associativity === "Right" && operators[o1].precedence < operators[o2].precedence))) {
+                            outputQueue += operatorStack.pop() + " ";
+                            o2 = operatorStack[operatorStack.length - 1];
+                        }
+                        operatorStack.push(o1);
+                    } else if (token === "(") {
+                        operatorStack.push(token);
+                    } else if (token === ")") {
+                        while (operatorStack[operatorStack.length - 1] !== "(") {
+                            outputQueue += operatorStack.pop() + " ";
+                        }
+                        operatorStack.pop();
+                    }
+                }
+                while (operatorStack.length > 0) {
+                    outputQueue += operatorStack.pop() + " ";
+                }
+                return outputQueue;
+            }
+
+        }
+
+        var ms = new MathSolver();
+            console.log(ms.infixToPostfix("( 4 + 5 ) * 6 - ( 9 / 2 ) + 15"));
+            
+    </script>
+
+</body>
+
+</html>
