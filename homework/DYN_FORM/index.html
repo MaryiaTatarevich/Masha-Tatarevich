@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYN_FORM</title>
+    <style> 
+    form{
+        display:grid;
+        width: 500px;
+    }
+    label{
+        margin-bottom: 15px;
+    }
+    button,select{
+        width: 200px;
+    }
+   
+    </style>
+</head>
+<body>
+    <script>
+        let formDef1 = [
+            { label: 'Название сайта:', kind: 'longtext', name: 'sitename' },
+            { label: 'URL сайта:', kind: 'longtext', name: 'siteurl' },
+            { label: 'Посетителей в сутки:', kind: 'number', name: 'visitors' },
+            { label: 'E-mail для связи:', kind: 'shorttext', name: 'email' },
+            {
+                label: 'Рубрика каталога:', kind: 'combo', name: 'division',
+                variants: [{ text: 'здоровье', value: 1 }, { text: 'домашний уют', value: 2 }, { text: 'бытовая техника', value: 3 }]
+            },
+            {
+                label: 'Размещение:', kind: 'radio', name: 'payment',
+                variants: [{ text: 'бесплатное', value: 1 }, { text: 'платное', value: 2 }, { text: 'VIP', value: 3 }]
+            },
+            { label: 'Разрешить отзывы:', kind: 'check', name: 'votes' },
+            { label: 'Описание сайта:', kind: 'memo', name: 'description' },
+            { caption: 'Опубликовать', kind: 'submit' }
+        ];
+
+        let formDef2 = [
+            { label: 'Фамилия:', kind: 'longtext', name: 'lastname' },
+            { label: 'Имя:', kind: 'longtext', name: 'firstname' },
+            { label: 'Отчество:', kind: 'longtext', name: 'secondname' },
+            { label: 'Возраст:', kind: 'number', name: 'age' },
+            { caption: 'Зарегистрироваться', kind: 'submit' }
+        ];
+
+        function dynForm(array) {
+            let form = document.createElement('form')
+            form.setAttribute('action', 'https://fe.it-academy.by/TestForm.php')
+            document.body.appendChild(form)
+
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].kind === 'combo') {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    label.appendChild(labelText)
+                    form.appendChild(label)
+                    let select = document.createElement('select')
+                    form.appendChild(select)
+                    for (let l = 0; l < array[i].variants.length; l++) {
+                        let option = document.createElement('option')
+                        let optionText = document.createTextNode(array[i].variants[l].text)
+                        option.appendChild(optionText)
+                        option.setAttribute('value', array[i].variants[l].value)
+                        select.appendChild(option)
+                    }
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+                else if (array[i].kind === 'radio') {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    label.appendChild(labelText)
+                    form.appendChild(label)
+                    for (let k = 0; k < array[i].variants.length; k++) {
+                        let input = document.createElement('input')
+                        let label = document.createElement('label')
+                        let labelText = document.createTextNode(formDef1[i].variants[k].text)
+                        label.appendChild(input)
+                        label.appendChild(labelText)
+                        input.setAttribute('name', formDef1[i].name)
+                        input.setAttribute('type', formDef1[i].kind)
+                        input.setAttribute('value', formDef1[i].variants[k].value)
+                        form.appendChild(label)
+                    }
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+                else if (array[i].kind === 'check') {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    let input = document.createElement('input')
+                    label.appendChild(labelText)
+                    label.appendChild(input)
+                    input.setAttribute('type', 'checkbox')
+                    input.setAttribute('name', array[i].name)
+                    form.appendChild(label)
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+                else if (array[i].kind === 'submit') {
+                    let button = document.createElement('button')
+                    let buttonText = document.createTextNode(array[i].caption)
+                    button.appendChild(buttonText)
+                    button.setAttribute('type', array[i].kind)
+                    form.appendChild(button)
+                }
+
+                else {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    let input = document.createElement('input')
+                    label.appendChild(labelText)
+                    label.appendChild(input)
+                    form.appendChild(label)
+                    input.setAttribute('name', array[i].name)
+                    input.setAttribute('type', array[i].kind)
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+            }
+        }
+
+        function tagBr() {
+            let br = document.createElement('br')
+            document.body.appendChild(br)
+        }
+
+        function tagHr() {
+            let hr = document.createElement('hr')
+            document.body.appendChild(hr)
+        }
+
+        dynForm(formDef1)
+        tagBr()
+        tagBr()
+        tagHr()
+        dynForm(formDef2)
+
+    </script>
+</body>
+</html>

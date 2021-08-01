@@ -1,4 +1,44 @@
 .calculator{
-    width: 500px;
-    background-color: aquamarine;
+    width: 224px;
+    background-color: rgb(226, 222, 222);
+    border-radius:10px;
+}
+
+.display{
+    background-color: cadetblue;
+    padding: 15px;
+      width: 224px;
+      height: 50px;
+      text-align: right;
+      font-size: 20px;
+      border-top-left-radius:10px;
+      border-top-right-radius:10px;
+}
+
+button {
+    padding: 0px;
+    width: 40px;
+    height: 45px;
+    margin-bottom: 100px;
+    background-color: rgb(194, 194, 194);
+    color: black;
+    font-size: 20px;
+}
+
+.firstRow{
+    padding-left: 4px; 
+}
+.secondRow{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 4px;
+}
+.thirdRow{
+    padding-left: 4px; 
+}
+
+.fourthRow{
+    padding-top: 4px;
+    padding-bottom: 4px; 
+    padding-left: 4px; 
 }
