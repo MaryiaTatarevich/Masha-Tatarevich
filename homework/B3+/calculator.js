@@ -21,9 +21,9 @@ for (let i = 0; i < arrayMyEnter.length; i++) {
         } else {
             return false
         }
-    } //не цифра не точка 
+    } 
 
-    function minusCheck(value) {//value = (arrayMyEnter[i - 1])
+    function minusCheck(value) {
         let newValue = value - 1
         if (arrayMyEnter[value] === '-' && !(isFinite(arrayMyEnter[newValue]) || arrayMyEnter[newValue] === ')')) {
             return 'unary'
@@ -62,7 +62,7 @@ for (let i = 0; i < arrayMyEnter.length; i++) {
 
     else if (dropCheck(arrayMyEnter[i]) && !dropCheck(arrayMyEnter[i - 1]) && dropCheck(arrayMyEnter[i + 1])) {
         arrayInPut[index] = arrayMyEnter[i]
-    } //усли элемент цифра или точка, предыдущее значение не цифра и не точка , а след значение цифра или точка, то присваиваем индекс
+    } //Если элемент цифра или точка, предыдущее значение не цифра и не точка , а след значение цифра или точка, то присваиваем индекс
 
     else if (dropCheck(arrayMyEnter[i]) && minusCheck(i - 1)==='unary' && dropCheck(arrayMyEnter[i + 1])) {
         arrayInPut[index] += arrayMyEnter[i]
@@ -81,7 +81,7 @@ for (let i = 0; i < arrayMyEnter.length; i++) {
 }
 
 let numbersStack = [];//массив выхода 
-let symbolsStack = [];// стек операции, одет операции в стек или иассив зависит от приритета последней операции в стек
+let symbolsStack = [];// стек операции
 
 for (let i = 0; i < arrayInPut.length; i++) {
     if (!isNaN(parseFloat(arrayInPut[i]))) {//проверяем число ли элемент
@@ -206,7 +206,6 @@ for (let r = 0; r < numbersStack.length; r++) {
         result.push(parseFloat(numbersStack[r]))
     }
 }
-
 
 return result
 }
