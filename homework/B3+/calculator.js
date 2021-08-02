@@ -60,13 +60,16 @@ for (let i = 0; i < arrayMyEnter.length; i++) {
         index++
     } //для единичных  цифр 
 
-    else if (dropCheck(arrayMyEnter[i]) && !dropCheck(arrayMyEnter[i - 1]) && dropCheck(arrayMyEnter[i + 1])) {
+
+
+
+    else if (dropCheck(arrayMyEnter[i]) && (!dropCheck(arrayMyEnter[i - 1])&&minusCheck(i - 1)!=='unary') && dropCheck(arrayMyEnter[i + 1])) {
         arrayInPut[index] = arrayMyEnter[i]
-    } //Если элемент цифра или точка, предыдущее значение не цифра и не точка , а след значение цифра или точка, то присваиваем индекс
+    } //Если элемент цифра или точка, предыдущее значение не цифра и не точка и не унарный минус, а след значение цифра или точка, то присваиваем индекс
 
     else if (dropCheck(arrayMyEnter[i]) && minusCheck(i - 1)==='unary' && dropCheck(arrayMyEnter[i + 1])) {
         arrayInPut[index] += arrayMyEnter[i]
-    } //усли элемент цифра или точка, предыдущее значение не цифра и не точка , а след значение цифра или точка, то присваиваем индекс
+    } //усли элемент цифра или точка, предыдущее значение унарный минус , а след значение цифра или точка, то присваиваем индекс
 
     else if (dropCheck(arrayMyEnter[i]) && dropCheck(arrayMyEnter[i - 1]) && dropCheck(arrayMyEnter[i + 1])) {
         arrayInPut[index] += arrayMyEnter[i]
@@ -206,6 +209,8 @@ for (let r = 0; r < numbersStack.length; r++) {
         result.push(parseFloat(numbersStack[r]))
     }
 }
+
+console.log(arrayInPut)
 
 return result
 }
