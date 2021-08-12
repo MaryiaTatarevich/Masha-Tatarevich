@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALID_FORM</title>
+    <style>
+        span {
+            color: red;
+
+        }
+
+        h3 {
+            margin-left: 15px;
+        }
+
+        form {
+            padding: 15px;
+            width: 550px;
+            border: solid black 2px;
+        }
+
+        label {
+            display: flex;
+            margin-bottom: 15px;
+
+        }
+
+        input[type='longtext'],
+        input[type='date'],
+        input[type='number'],
+        input[type='radio'],
+        input[type='memo'],
+        select {
+            flex: 1;
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+
+        #radioError {
+            margin-left: 49px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Для внесения вашего сайта в каталог, заполните форму:</h3>
+
+    <script>
+        let formDef1 = [
+            { label: 'Разработчики:', kind: 'longtext', name: 'developers' },
+            { label: 'Название сайта:', kind: 'longtext', name: 'sitename' },
+            { label: 'URL сайта:', kind: 'longtext', name: 'siteurl' },
+            { label: 'Дата запуска сайта:', kind: 'date', name: 'launchdata' },
+            { label: 'Посетителей в сутки:', kind: 'number', name: 'visitors' },
+            { label: 'E-mail для связи:', kind: 'longtext', name: 'email' },
+            {
+                label: 'Рубрика каталога:', kind: 'combo', name: 'division',
+                variants: [{ text: 'здоровье', value: 1 }, { text: 'домашний уют', value: 2 }, { text: 'бытовая техника', value: 3 }]
+            },
+            {
+                label: 'Размещение:', kind: 'radio', name: 'payment',
+                variants: [{ text: 'бесплатное', value: 1 }, { text: 'платное', value: 2 }, { text: 'VIP', value: 3 }]
+            },
+            { label: 'Разрешить отзывы:', kind: 'check', name: 'votes' },
+            { label: 'Описание сайта:', kind: 'memo', name: 'description' },
+            { caption: 'Опубликовать', kind: 'submit' }
+        ];
+
+        function dynForm(array) {
+            let form = document.createElement('form')
+            form.setAttribute('action', 'https://fe.it-academy.by/TestForm.php')
+            document.body.appendChild(form)
+
+            for (let i = 0; i < array.length; i++) {
+                if (array[i].kind === 'combo') {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    label.appendChild(labelText)
+                    form.appendChild(label)
+                    let select = document.createElement('select')
+                    label.setAttribute('id', array[i].name)
+                    label.appendChild(select)
+                    let option = document.createElement('option')
+                    select.appendChild(option)
+                    for (let l = 0; l < array[i].variants.length; l++) {
+                        let option = document.createElement('option')
+                        let optionText = document.createTextNode(array[i].variants[l].text)
+                        option.appendChild(optionText)
+                        option.setAttribute('value', array[i].variants[l].value)
+                        select.appendChild(option)
+                    }
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+                else if (array[i].kind === 'radio') {
+                    let labelRadio = document.createElement('label')
+                    labelRadio.setAttribute('id', array[i].name)
+                    let labelText = document.createTextNode(array[i].label)
+                    labelRadio.appendChild(labelText)
+                    form.appendChild(labelRadio)
+                    for (let k = 0; k < array[i].variants.length; k++) {
+                        let input = document.createElement('input')
+                        let label = document.createElement('label')
+                        let labelText = document.createTextNode(formDef1[i].variants[k].text)
+                        label.appendChild(input)
+                        label.appendChild(labelText)
+                        input.setAttribute('name', formDef1[i].name)
+                        input.setAttribute('type', formDef1[i].kind)
+                        input.setAttribute('value', formDef1[i].variants[k].value)
+                        labelRadio.appendChild(label)
+                    }
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+                else if (array[i].kind === 'check') {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    let input = document.createElement('input')
+                    label.appendChild(labelText)
+                    label.appendChild(input)
+                    input.setAttribute('type', 'checkbox')
+                    input.setAttribute('name', array[i].name)
+                    form.appendChild(label)
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+                else if (array[i].kind === 'submit') {
+                    let button = document.createElement('button')
+                    let buttonText = document.createTextNode(array[i].caption)
+                    button.appendChild(buttonText)
+                    button.setAttribute('type', array[i].kind)
+                    form.appendChild(button)
+                }
+
+                else {
+                    let label = document.createElement('label')
+                    let labelText = document.createTextNode(array[i].label)
+                    let input = document.createElement('input')
+                    label.appendChild(labelText)
+                    label.appendChild(input)
+                    form.appendChild(label)
+                    input.setAttribute('name', array[i].name)
+                    input.setAttribute('type', array[i].kind)
+                    label.setAttribute('id', array[i].name)
+                    let br = document.createElement('br')
+                    form.appendChild(br)
+                }
+
+            }
+        }
+
+        dynForm(formDef1)
+
+        let form = document.getElementsByTagName('form')[0]
+
+
+        form.addEventListener('submit', validateAllForm);
+
+        function validateAllForm(event) {
+            event = event || window.event;
+            let radioValidation = document.querySelector('input[name ="payment"]:checked');
+            if (radioValidation === null) {
+                event.preventDefault();
+                if (document.getElementById('radioError') === null) {
+                    let span = document.createElement('span');
+                    span.setAttribute('id', 'radioError')
+                    let spanText = document.createTextNode('Поле не заполнено');
+                    span.appendChild(spanText);
+                    payment.appendChild(span);
+                    let radiosArray = document.getElementsByName('payment')
+                    for (let k = 0; k < radiosArray.length; k++) {
+                        radiosArray[k].addEventListener('change', emptinessValidRadio)
+                    }
+
+                    function emptinessValidRadio() {
+                        radioValidation = document.querySelector('input[name ="payment"]:checked');
+                        if (radioValidation !== null && document.getElementById('radioError') !== null) {
+                            let deleteSpan = document.getElementById('radioError')
+                            payment.removeChild(deleteSpan)
+                        }
+                    }
+                }
+            }// проверка заполнен ли checkbox
+            let elementsArray = form.elements
+            for (let i = 0; i < elementsArray.length; i++) {
+                elementsTagName = elementsArray[i].nodeName.toLowerCase()
+                inputType = elementsArray[i].type.toLowerCase()
+                if (elementsTagName === 'input' && inputType !== 'radio') {
+                    if (elementsArray[i].value === "") {
+                        event.preventDefault();
+
+                        if (document.getElementById(i) === null) {
+
+                            let parentElem = elementsArray[i].parentElement
+                            elementsArray[i].focus()
+                            let span = document.createElement('span');
+                            span.setAttribute('id', i)
+                            let spanText = document.createTextNode('Поле не заполнено');
+                            span.appendChild(spanText);
+                            parentElem.appendChild(span);
+                            elementsArray[i].addEventListener('blur', emptinessValid)
+                            function emptinessValid() {
+                                if (elementsArray[i].value !== "" && document.getElementById(i) !== null) {
+                                    let deleteSpan = document.getElementById(i)
+                                    parentElem.removeChild(deleteSpan)
+                                }
+                            }
+                        }
+                    }
+                } else if (elementsTagName === 'select' && elementsArray[i].value === "") {
+                    event.preventDefault();
+                    if (document.getElementById(i) === null) {
+                        elementsArray[i].focus()
+                        let span = document.createElement('span');
+                        span.setAttribute('id', i)
+                        let spanText = document.createTextNode('Поле не заполнено');
+                        span.appendChild(spanText);
+                        division.appendChild(span);
+                        elementsArray[i].addEventListener('blur', emptinessValidSelect)
+                        function emptinessValidSelect() {
+                            if (elementsArray[i].value !== "" && document.getElementById(i) !== null) {
+                                let deleteSpan = document.getElementById(i)
+                                division.removeChild(deleteSpan)
+                            }
+                        }
+                    }
+                }
+            }// проверка заполнены ли остальные поля
+            let errorValidation = document.getElementsByTagName('span')
+            if (errorValidation.length !== 0) {
+                event.preventDefault();
+            } 
+        }
+
+
+        let inputDevelopers = document.getElementsByName('developers')[0];
+        inputDevelopers.addEventListener("blur", validationDevInput)
+        function validationDevInput() {
+            let regexp = /^\D+$/;
+            if (!regexp.test(inputDevelopers.value) && inputDevelopers.value !== "" && document.getElementById('DevValid') === null) {
+                let span = document.createElement('span');
+                span.setAttribute('id', 'DevValid')
+                let spanText = document.createTextNode('Поле не должно содержать цифры');
+                span.appendChild(spanText);
+                developers.appendChild(span)
+            }
+            else if ((regexp.test(inputDevelopers.value) || inputDevelopers.value === "") && document.getElementById('DevValid') !== null) {
+                let deleteSpan = document.getElementById('DevValid')
+                developers.removeChild(deleteSpan)
+            }
+
+        }
+
+        let inputSitename = document.getElementsByName('sitename')[0];
+        inputSitename.addEventListener("blur", validationSitenameInput)
+        function validationSitenameInput() {
+            if (inputSitename.value.length < 5 && inputSitename.value !== "" && document.getElementById('SitenameValid') === null) {
+                let span = document.createElement('span');
+                span.setAttribute('id', 'SitenameValid')
+                let spanText = document.createTextNode('Поле не должно содержать меньше 5 символов');
+                span.appendChild(spanText);
+                sitename.appendChild(span)
+            }
+            else if ((inputSitename.value.length >= 5 || inputSitename.value === "") && document.getElementById('SitenameValid') !== null) {
+                let deleteSpan = document.getElementById('SitenameValid')
+                sitename.removeChild(deleteSpan)
+            }
+
+        }
+
+        let inputURL = document.getElementsByName('siteurl')[0];
+        inputURL.addEventListener("blur", validationURLInput)
+        function validationURLInput() {
+            let regexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+            if (!regexp.test(inputURL.value) && inputURL.value !== "" && document.getElementById('URLValid') === null) {
+                let span = document.createElement('span');
+                span.setAttribute('id', 'URLValid')
+                let spanText = document.createTextNode('Не корректно введенное значение');
+                span.appendChild(spanText);
+                siteurl.appendChild(span)
+            }
+            else if ((regexp.test(inputURL.value) || inputURL.value === "") && document.getElementById('URLValid') !== null) {
+                let deleteSpan = document.getElementById('URLValid')
+                siteurl.removeChild(deleteSpan)
+            }
+        }
+
+        let inputEmail = document.getElementsByName('email')[0];
+        inputEmail.addEventListener("blur", validationEmailInput)
+        function validationEmailInput() {
+            let regexp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!regexp.test(inputEmail.value) && inputEmail.value !== "" && document.getElementById('emailValid') === null) {
+                let span = document.createElement('span');
+                span.setAttribute('id', 'emailValid')
+                let spanText = document.createTextNode('Не корректно введенное значение');
+                span.appendChild(spanText);
+                email.appendChild(span)
+            }
+            else if ((regexp.test(inputEmail.value) || inputEmail.value === "") && document.getElementById('emailValid') !== null) {
+                let deleteSpan = document.getElementById('emailValid')
+                email.removeChild(deleteSpan)
+            }
+
+        }
+
+        let inputDescription = document.getElementsByName('description')[0];
+        inputDescription.addEventListener("blur", validationDescrInput)
+        function validationDescrInput() {
+            if (inputDescription.value.length > 20 && inputDescription.value !== "" && document.getElementById('DescrValid') === null) {
+                let span = document.createElement('span');
+                span.setAttribute('id', 'DescrValid')
+                let spanText = document.createTextNode('Поле не должно содержать больше 20 символов');
+                span.appendChild(spanText);
+                description.appendChild(span)
+            }
+            else if ((inputDescription.value.length <= 20 || inputDescription.value === "") && document.getElementById('DescrValid') !== null) {
+                let deleteSpan = document.getElementById('DescrValid')
+                description.removeChild(deleteSpan)
+            }
+
+        }
+
+
+    </script>
+
+</body>
+
+</html>
