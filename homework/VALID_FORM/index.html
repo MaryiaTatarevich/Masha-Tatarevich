@@ -281,7 +281,7 @@
             if (!regexp.test(inputURL.value) && inputURL.value !== "" && document.getElementById('URLValid') === null) {
                 let span = document.createElement('span');
                 span.setAttribute('id', 'URLValid')
-                let spanText = document.createTextNode('Не корректно введенное значение');
+                let spanText = document.createTextNode('Некорректно введенное значение');
                 span.appendChild(spanText);
                 siteurl.appendChild(span)
             }
@@ -298,7 +298,7 @@
             if (!regexp.test(inputEmail.value) && inputEmail.value !== "" && document.getElementById('emailValid') === null) {
                 let span = document.createElement('span');
                 span.setAttribute('id', 'emailValid')
-                let spanText = document.createTextNode('Не корректно введенное значение');
+                let spanText = document.createTextNode('Некорректно введенное значение');
                 span.appendChild(spanText);
                 email.appendChild(span)
             }
