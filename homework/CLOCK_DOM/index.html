@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOCK_DOM</title>
+    <style>
+        .numbers {
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: indianred;
+            position: absolute;
+
+        }
+
+        .center {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: black;
+            position: absolute;
+            left: 200px;
+            top: 200px;
+        }
+
+        #clockHandSecond {
+            background-color: red;
+            position: absolute;
+            width: 1px;
+            height: 85px;
+            border-radius: 1px;
+            transform-origin: bottom center;
+            left: 204.5px;
+            top: 120px;
+        }
+
+        #clockHandMinute {
+            background-color: black;
+            position: absolute;
+            width: 2px;
+            height: 85px;
+            border-radius: 1px;
+            transform-origin: bottom center;
+            left: 204px;
+            top: 120px;
+        }
+
+        #clockHandHour {
+            background-color: black;
+            position: absolute;
+            width: 3px;
+            height: 70px;
+            border-radius: 1px;
+            transform-origin: bottom center;
+            left: 203.5px;
+            top: 135px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id='clock'></div>
+
+    <script>
+
+        let divCenter = document.createElement('div');
+        divCenter.setAttribute('class', 'center');
+        divCenter.setAttribute('id', 'center');
+        clock.appendChild(divCenter);
+
+        let firstAngle = 30
+        for (let i = 1; i < 13; i++) {
+            let divNumbers = document.createElement('div');
+            let divNumbersText = document.createTextNode(i);
+            divNumbers.setAttribute('id', i)
+            divNumbers.setAttribute('class', 'numbers')
+            divNumbers.appendChild(divNumbersText);
+            clock.appendChild(divNumbers);
+            pos(firstAngle, i)
+            firstAngle += 30
+        }
+
+        function pos(clockAngle, i) {
+            let center = document.getElementById('center');
+            let clockHandNumber = document.getElementById(i);
+            let resultCenter = center.getBoundingClientRect();
+            let resultClockHandNumber = clockHandNumber.getBoundingClientRect();
+            let radius = 100;
+            let angle = clockAngle * Math.PI / 180 //переводим градусы в радианы 
+            let centerCenterY = resultCenter.top + resultCenter.height / 2
+            let centerCenterX = resultCenter.left + resultCenter.width / 2
+            let clockHandNumberCenterY = centerCenterY - radius * Math.cos(angle)
+            let clockHandNumberCenterX = centerCenterX + radius * Math.sin(angle)
+            clockHandNumber.style.left = Math.round(clockHandNumberCenterX - resultClockHandNumber.width / 2) + 'px';
+            clockHandNumber.style.top = Math.round(clockHandNumberCenterY - resultClockHandNumber.height / 2) + 'px';
+        }
+
+        let clockSpan = document.createElement('span');
+        clockSpan.setAttribute('id', 'clockSpan');
+        clock.before(clockSpan);
+
+        setInterval(updateTime, 1000)
+
+        function updateTime() {
+            let date = new Date();
+            let localdate = date.toLocaleTimeString();
+            document.getElementById('clockSpan').innerHTML = localdate;
+            let sec = 6 * date.getSeconds();
+            let min = 6 * (date.getMinutes() + (1 / 60) * date.getSeconds());
+            let hour = 30 * (date.getHours() + (1 / 60) * date.getMinutes());
+            document.querySelector('#clockHandSecond').style.transform = `rotate(${sec}deg)`;
+            document.querySelector('#clockHandMinute').style.transform = `rotate(${min}deg)`;
+            document.querySelector('#clockHandHour').style.transform = `rotate(${hour}deg)`;
+        }
+
+        let divClockHandSecond = document.createElement('div');
+        divClockHandSecond.setAttribute('class', 'clockHandSecond');
+        divClockHandSecond.setAttribute('id', 'clockHandSecond');
+        clock.appendChild(divClockHandSecond);
+
+        let divClockHandMinute = document.createElement('div');
+        divClockHandMinute.setAttribute('class', 'clockHandMinute');
+        divClockHandMinute.setAttribute('id', 'clockHandMinute');
+        clock.appendChild(divClockHandMinute);
+
+        let divClockHandHour = document.createElement('div');
+        divClockHandHour.setAttribute('class', 'clockHandHour');
+        divClockHandHour.setAttribute('id', 'clockHandHour');
+        clock.appendChild(divClockHandHour);
+    </script>
+
+</body>
+
+</html>
