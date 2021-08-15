@@ -38,19 +38,20 @@
         let timer
 
         function move() {
-            if(timer){
+            if (timer) {
                 clearInterval(timer)
                 timer = setInterval(run, 20)
-            }else{
-                timer = setInterval(run, 20)}
+            } else {
+                timer = setInterval(run, 20)
             }
+        }
 
 
         window.addEventListener("keydown", function (event) {
             switch (event.code) {
                 case 'ArrowDown':
                     direction = 'down';
-                        move()
+                    move()
                     break;
                 case 'ArrowUp':
                     direction = 'up';
@@ -68,44 +69,46 @@
 
         })
 
-            function run() {
+        function run() {
 
 
-                switch (direction) {
-                    case 'down':
-
+            switch (direction) {
+                case 'down':
+                    if (y < 450) {
                         y++
                         square.style.top = y + 'px'
-                        if (y >= 450) {
-                            clearInterval(timer);
-                        }
-                        break;
-                    case 'up':
-                        y--
-                        square.style.top = y + 'px'
-                        if (y <= 0) {
-                            clearInterval(timer);
-                        }
-                        break;
-                    case 'right':
-                        x++
-                        square.style.left = x + 'px'
-                        if (x >= 450) {
-                            clearInterval(timer);
-                        }
-                        break;
-                    case 'left':
-                        x--
-                        square.style.left = x + 'px'
-                        if (x <= 0) {
-                            clearInterval(timer);
-                        }
+                    }
+                    else {
+                        clearInterval(timer);
+                    }
+                    break;
+                case 'up':
+                    if(y>0){
+                    y--
+                    square.style.top = y + 'px'
+                    } else{
+                        clearInterval(timer);}
 
-
-                        break;
+                    break;
+                case 'right':
+                    if(x<450){
+                    x++
+                    square.style.left = x + 'px'
+                }else{
+                    clearInterval(timer);
                 }
+                    break;
+                case 'left':
+                    if(x>0){
+                    x--
+                    square.style.left = x + 'px'}
+                    else{
+                        clearInterval(timer);
+                    }
+                    break;
             }
-        
+        }
+
 
 
     </script>
