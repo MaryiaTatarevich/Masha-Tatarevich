@@ -5,20 +5,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="CSS.css" type="text/css" rel="stylesheet">
     <style>
-        #area{
+        #area {
             width: 500px;
             height: 500px;
             background-color: coral;
             position: relative;
-            margin: 0 auto; /* выравнивает блочный элемент по центру */
+            margin: 0 auto;
+            /* выравнивает блочный элемент по центру */
         }
 
-        #square{
+        #square {
             width: 50px;
             height: 50px;
-            background-color:darkcyan;
+            background-color: darkcyan;
             position: absolute;
             left: 0;
             top: 0;
@@ -28,68 +28,84 @@
 
 <body>
     <div id='area'>
-    <div id='square'></div>
+        <div id='square'></div>
     </div>
     <script>
         let square = document.getElementById('square');
         let x = 0;
         let y = 0;
         let direction = '';
-        const timer = setInterval(run, 20)
+        let timer
+
+        function move() {
+            if(timer){
+                clearInterval(timer)
+                timer = setInterval(run, 20)
+            }else{
+                timer = setInterval(run, 20)}
+            }
+
 
         window.addEventListener("keydown", function (event) {
             switch (event.code) {
                 case 'ArrowDown':
                     direction = 'down';
+                        move()
                     break;
                 case 'ArrowUp':
                     direction = 'up';
+                    move()
                     break;
                 case 'ArrowRight':
                     direction = 'right';
+                    move()
                     break;
                 case 'ArrowLeft':
                     direction = 'left';
+                    move()
                     break;
             }
 
         })
 
-        function run() {
-            switch (direction) {
-                case 'down':
-                    y++
-                    square.style.top = y + 'px'
-                    if (y >= 450) {
-                        clearInterval(timer);
-                    }
-                    break;
-                case 'up':
-                    y--
-                    square.style.top = y + 'px'
-                    if (y <= 0) {
-                        clearInterval(timer);
-                    }
-                    break;
-                case 'right':
-                    x++
-                    square.style.left = x + 'px'
-                    if (x >= 450) {
-                        clearInterval(timer);
-                    }
-                    break;
-                case 'left':
-                    x--
-                    square.style.left = x + 'px'
-                    if (x <= 0) {
-                        clearInterval(timer);
-                    }
+            function run() {
 
 
-                    break;
+                switch (direction) {
+                    case 'down':
+
+                        y++
+                        square.style.top = y + 'px'
+                        if (y >= 450) {
+                            clearInterval(timer);
+                        }
+                        break;
+                    case 'up':
+                        y--
+                        square.style.top = y + 'px'
+                        if (y <= 0) {
+                            clearInterval(timer);
+                        }
+                        break;
+                    case 'right':
+                        x++
+                        square.style.left = x + 'px'
+                        if (x >= 450) {
+                            clearInterval(timer);
+                        }
+                        break;
+                    case 'left':
+                        x--
+                        square.style.left = x + 'px'
+                        if (x <= 0) {
+                            clearInterval(timer);
+                        }
+
+
+                        break;
+                }
             }
-        }
-
+        
 
 
     </script>
