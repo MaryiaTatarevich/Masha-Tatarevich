@@ -37,7 +37,7 @@
         }
 
         .numbers {
-            text-anchor: middle;
+             text-anchor: middle; /*позиционирует текст по центру по горизонтали  */
         }
     </style>
 
@@ -71,7 +71,7 @@
             text.appendChild(numberText)
             text.setAttribute('id', i)
             text.setAttribute('class', 'numbers')
-            text.setAttribute('dominant-baseline', 'central')
+            text.setAttribute('dominant-baseline', 'central') /*позиционирует текст по центру по вертикали  */
 
             svg.appendChild(text)
             pos(firstAngle, i)
