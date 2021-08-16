@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLOCK_CANVAS</title>
+    <style>
+        #CVE {
+            border: dashed 2px blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock"></div>
+    <canvas id="CVE" width="600" height="600"></canvas>
+    <script>
+
+        window.addEventListener('load', function () {
+            setInterval(clock, 1000)
+        })
+
+        function clock() {
+
+            let ctx = document.getElementById('CVE')
+            let context = ctx.getContext('2d');
+            // Kоординатs центра и радиуса часов
+            let radius = 250
+            let xCenterClock = 300
+            let yCenterClock = 300
+
+
+            context.fillStyle = 'white';//для очистки экрана
+            context.fillRect(0, 0, ctx.width, ctx.height);
+
+            context.strokeStyle = 'black';
+            context.lineWidth = 3.5;
+            context.beginPath();
+            context.arc(xCenterClock, yCenterClock, radius, 0, Math.PI * 2, true);
+            context.moveTo(xCenterClock, yCenterClock);
+
+            context.fillStyle = 'darkorange';
+            context.fill();
+            context.stroke()
+
+            let radiusNumbers = 220 // радиус расположения цифр
+            let clockAngle = 30
+            for (let i = 1; i < 13; i++) {//рисуем цифры
+                context.beginPath();
+                context.font = '30px sans-serif';
+                let angle = clockAngle * Math.PI / 180
+                let xText = xCenterClock + radiusNumbers * Math.sin(angle)
+                let yText = yCenterClock - radiusNumbers * Math.cos(angle)
+                clockAngle += 30
+                context.strokeText(i, xText, yText);
+                context.textAlign='center';
+                context.textBaseline='middle';  
+                context.stroke();
+            }
+
+            context.beginPath();
+            context.arc(xCenterClock, yCenterClock, 10, Math.PI * 2, false);
+            context.fillStyle = 'black';
+            context.fill();
+
+            let lengthSecond = 200 // Рисуем стрелки
+            let lengthMinute = 200
+            let lengthHour = 150
+
+            let date = new Date();
+            let sec = 6 * date.getSeconds();
+            let min = 6 * (date.getMinutes() + (1 / 60) * date.getSeconds());
+            let hour = 30 * (date.getHours() + (1 / 60) * date.getMinutes());
+
+            let localdate = date.toLocaleTimeString();
+            document.getElementById('clock').innerHTML = localdate;
+
+            context.beginPath();
+            context.strokeStyle = 'red';
+            context.lineWidth = 2;
+            context.lineCap = 'round';
+            context.moveTo(xCenterClock, yCenterClock);
+            context.lineTo(xCenterClock + lengthSecond * Math.sin(sec * (Math.PI / 180)), yCenterClock - lengthSecond * Math.cos(sec * (Math.PI / 180)));
+            context.stroke()
+
+            context.beginPath();
+            context.strokeStyle = 'black'
+            context.lineWidth = 4
+            context.lineCap = 'round';
+            context.moveTo(xCenterClock, yCenterClock);
+            context.lineTo(xCenterClock + lengthMinute * Math.sin(min * (Math.PI / 180)), yCenterClock - lengthMinute * Math.cos(min * (Math.PI / 180)));
+            context.stroke()
+
+            context.beginPath();
+            context.strokeStyle = 'black'
+            context.lineWidth = 6
+            context.lineCap = 'round';
+            context.moveTo(xCenterClock, yCenterClock);
+            context.lineTo(xCenterClock + lengthHour * Math.sin(hour * (Math.PI / 180)), yCenterClock - lengthHour * Math.cos(hour * (Math.PI / 180)));
+            context.stroke()
+
+        }
+
+    </script>
+
+</body>
+
+</html>
