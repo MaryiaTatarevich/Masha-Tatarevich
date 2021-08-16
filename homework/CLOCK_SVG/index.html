@@ -6,15 +6,110 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLOCK_SVG</title>
+    <style>
+        .border {
+            border: 2px dashed dodgerblue;
+        }
+
+        .circle {
+            stroke: black;
+            fill: darkcyan;
+            stroke-width: "2"
+        }
+
+        .secondHand {
+            stroke: red;
+            stroke-width: 1;
+        }
+
+        .minuteHand {
+            stroke: black;
+            stroke-width: 2;
+        }
+
+        .hourHand {
+            stroke: black;
+            stroke-width: 3;
+        }
+
+        .center {
+            fill: black;
+        }
+
+        .numbers {
+            text-anchor: middle;
+        }
+    </style>
 
 </head>
+
 <body>
+    <div>
+        <div id="clock"></div>
+        <div>
+            <svg id="svg" viewBox="0 0 300 300" class="border" xmlns="http://www.w3.org/2000/svg" height="300"
+                width="300">
+                <circle class="circle" cx="150" cy="150" r="100" />
+                <circle id="center" cx="150" cy="150" r="4" />
+                <line id="secondHand" class="secondHand" x1="150" y1="150" x2="150" y2="65"
+                    transform="rotate(30 150 150)" />
+                <line id='minuteHand' class="minuteHand" x1="150" y1="150" x2="150" y2="65"
+                    transform=" rotate(60 150 150)" />
+                <line id='hourHand' class="hourHand" x1="150" y1="150" x2="150" y2="75"
+                    transform=" rotate(90 150 150)" />
+
+            </svg>
+        </div>
+    </div>
     <script>
-        console.log('Pleaseeeeeeee');
+
+
+        let firstAngle = 30
+        for (let i = 1; i < 13; i++) {
+            let text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            let numberText = document.createTextNode(i);
+            text.appendChild(numberText)
+            text.setAttribute('id', i)
+            text.setAttribute('class', 'numbers')
+            text.setAttribute('dominant-baseline', 'central')
+
+            svg.appendChild(text)
+            pos(firstAngle, i)
+            firstAngle += 30
+        }
+
+        function pos(clockAngle, i) {
+            let clockHandNumber = document.getElementById(i)
+            let radius = 90;
+            let angle = clockAngle * Math.PI / 180
+            let centerY = 150
+            let centerX = 150
+            let clockHandNumberY = Math.round(centerY - radius * Math.cos(angle))
+            let clockHandNumberX = Math.round(centerX + radius * Math.sin(angle))
+
+            clockHandNumber.setAttribute('x', clockHandNumberX)
+            clockHandNumber.setAttribute('y', clockHandNumberY)
+        }
+
+        let svgHours = document.getElementById('hourHand');
+        let svgMinute = document.getElementById('minuteHand');
+        let svgSecond = document.getElementById('secondHand');
+        setInterval(updateTime, 1000);
+        function updateTime() {
+            let date = new Date();
+            let localdate = date.toLocaleTimeString();
+            document.getElementById('clock').innerHTML = localdate;
+            let sec = 6 * date.getSeconds();
+            let min = 6 * (date.getMinutes() + (1 / 60) * date.getSeconds());
+            let hour = 30 * (date.getHours() + (1 / 60) * date.getMinutes());
+
+            svgSecond.setAttribute('transform', `rotate(${sec} 150 150)`);
+            svgMinute.setAttribute('transform', `rotate(${min} 150 150)`);
+            svgHours.setAttribute('transform', `rotate(${hour} 150 150)`);
+        }
+
+
     </script>
-
-   
-
 </body>
 
 </html>
