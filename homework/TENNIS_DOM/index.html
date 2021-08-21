@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TENNIS_DOM</title>
+    <style>
+        #field {
+            width: 800px;
+            height: 500px;
+            background-color: coral;
+            position: relative;
+            margin: 0 auto;
+            /* border: solid 2px black; */
+        }
+
+        #button {
+            width: 50px;
+            height: 25px;
+            margin-left: 352px;
+            margin-bottom: 30px;
+        }
+
+        #score {
+            font-size: 45px;
+            padding-left: 310px;
+        }
+
+        /* #button{
+        margin: 0 auto;
+        } */
+        .racket {
+            width: 15px;
+            height: 100px;
+            position: absolute;
+        }
+
+        #left {
+            background-color: cornflowerblue;
+            left: 0;
+        }
+
+        #right {
+            background-color: darkolivegreen;
+            right: 0;
+        }
+
+        .ball {
+            background-color: crimson;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tennis"></div>
+    <script>
+        window.addEventListener('load', tennis)
+        function tennis() {
+            let tennis = document.getElementById('tennis');
+            let button = document.createElement('button');
+            let textButton = document.createTextNode('старт!');
+            button.appendChild(textButton);
+            button.setAttribute('id', 'button');
+            tennis.appendChild(button);
+            let score = document.createElement('span');
+            let leftScore = 0;
+            let rightScore = 0;
+            let textScore = document.createTextNode(`${leftScore}:${rightScore}`);
+            score.setAttribute('id', 'score');
+            score.appendChild(textScore);
+            tennis.appendChild(score);
+            let field = document.createElement('div');
+            field.setAttribute('id', 'field')
+            tennis.appendChild(field);
+
+            let leftRacket = document.createElement('div');
+            leftRacket.setAttribute('class', 'racket');
+            leftRacket.setAttribute('id', 'left');
+            field.appendChild(leftRacket);
+
+            let rightRacket = document.createElement('div');
+            rightRacket.setAttribute('class', 'racket');
+            rightRacket.setAttribute('id', 'right');
+            field.appendChild(rightRacket);
+
+            let Timer = function () {
+                let self = this;
+                let timer
+                this.running = false;
+                this.run = function () {
+                    if (!self.running) {
+                        self.running = true;
+                        timer = setInterval(move, 10)
+                    }
+                }
+                this.stopRun = function () {
+                    if (self.running) {
+                        self.running = false;
+                        clearInterval(timer)
+                    }
+                }
+                return this;
+            }
+
+            let aTimer = new Timer()
+
+            button.addEventListener('click', start)
+
+            let ballStartX
+            let ballStartY
+            let actualBallX
+            let actualBallY
+            let result = false
+            let min = -1;
+            let max = 1;
+            let dxBall
+            let dyBall
+            let randomX 
+            let randomY 
+            function start() {
+                result = false
+                let findElement = document.getElementById('ball')
+                if (findElement) {
+                    field.removeChild(findElement)
+                    createBall()
+                } else (createBall())
+
+                randomX =  Math.floor(Math.random() * (max - min + 1)) + min;
+                randomY =  Math.floor(Math.random() * (max - min + 1)) + min;
+                if(randomX !==0 ){
+                    dxBall = randomX 
+                }else{
+                    randomX = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                if(randomY !==0 ){
+                    dyBall = randomY
+                }else{
+                    randomY = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                
+
+                aTimer.run()
+                console.log(dxBall)
+                console.log(dyBall)
+            }
+
+            function createBall() {
+                let ball = document.createElement('div');
+                ball.setAttribute('id', 'ball');
+                ball.setAttribute('class', 'ball');
+                document.getElementById('field').appendChild(ball);
+                field.appendChild(ball);
+                let fieldElement = document.getElementById('field');
+                ballStartX = fieldElement.getBoundingClientRect().width / 2 - ball.getBoundingClientRect().width / 2;
+                ballStartY = fieldElement.getBoundingClientRect().height / 2 - ball.getBoundingClientRect().height / 2;
+                ball.style.left = ballStartX + 'px';
+                ball.style.top = ballStartY + 'px';
+                actualBallX = ballStartX
+                actualBallY = ballStartY
+            }
+
+            let leftDirection = '';
+            let rightDirection = '';
+
+            window.addEventListener("keydown", function (event) {
+                switch (event.code) {
+                    case 'ArrowDown':
+                        rightDirection = 'rightDown';
+                        break;
+                    case 'ArrowUp':
+                        rightDirection = 'rightUp';
+                        break;
+                    case 'ShiftLeft':
+                        leftDirection = 'leftUp';
+                        break;
+                    case 'ControlLeft':
+                        leftDirection = 'leftDown';
+                        break;
+
+                }
+            })
+
+            document.addEventListener("keyup", function (event) {
+                if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+                    rightDirection = '';
+                }
+
+                else if (event.code === 'ShiftLeft' || event.code === 'ControlLeft') {
+                    leftDirection = '';
+                }
+            })
+
+            let yleft = 0;
+            let yright = 0;
+
+            // let speedX = 1;
+            // let speedY = 1;          
+            function move() {
+                racketMovement()
+                let ballElement = document.getElementById('ball');
+                let fieldElement = document.getElementById('field');
+                let rightRacket = document.getElementById('right');
+                let goal = document.getElementById('score')
+                if (0 < actualBallX && actualBallX < (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width)) {
+                    if (actualBallY > (fieldElement.getBoundingClientRect().height - ballElement.getBoundingClientRect().height) || actualBallY < 0) {
+                        dyBall = - dyBall
+
+                    } else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width - 15)) {
+                        if ((actualBallY + ballElement.getBoundingClientRect().width) > yright && (actualBallY + ballElement.getBoundingClientRect().width) < (yright + 100)) {
+                            dxBall = - dxBall
+                        }
+
+
+                    } else if (actualBallX <= 15) {
+                        if ((actualBallY + ballElement.getBoundingClientRect().width) > yleft && (actualBallY + ballElement.getBoundingClientRect().width) < (yleft + 100)) {
+                            dxBall = - dxBall
+                        }
+                    }
+
+                    actualBallX += dxBall
+                    actualBallY += dyBall
+                    ballElement.style.left = actualBallX + 'px';
+                    ballElement.style.top = actualBallY + 'px';
+                }
+                else if (actualBallX <= 0 && !result) {
+                    gameOver()
+                    leftScore += 1;
+                    goal.innerHTML = `${leftScore}:${rightScore}`
+                }
+                else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width) && !result) {
+                    gameOver()
+                    rightScore += 1;
+                    goal.innerHTML = `${leftScore}:${rightScore}`
+                }
+            }
+
+            function racketMovement() {
+                if (rightDirection === 'rightDown') {
+                    if (yright < 400) {
+                        yright++
+                        rightRacket.style.top = yright + 'px'
+
+
+                    }
+                    else {
+                        rightDirection = '';
+                    }
+                }
+                if (rightDirection === 'rightUp') {
+                    if (yright > 0) {
+                        yright--
+                        rightRacket.style.top = yright + 'px'
+
+                    } else {
+                        rightDirection = '';
+                    }
+                }
+                if (leftDirection === 'leftDown') {
+                    if (yleft < 400) {
+                        yleft++
+                        leftRacket.style.top = yleft + 'px'
+                    } else {
+                        leftDirection = '';
+                    }
+                }
+                if (leftDirection === 'leftUp') {
+                    if (yleft > 0) {
+                        yleft--
+                        leftRacket.style.top = yleft + 'px'
+                    } else {
+                        direction = '';
+                    }
+                }
+            }
+            function gameOver() {
+                let ballElement = document.getElementById('ball');
+                ballElement.style.left = actualBallX + 'px';
+                ballElement.style.top = actualBallY + 'px';
+                result = true
+            }
+        }
+
+//         Получение случайного дробного числа между min и max:
+
+// function getRandomArbitary(min, max) {
+// 	return Math.random() * (max - min) + min;
+// }
+// Получение случайного целого числа между min и max:
+
+// function getRandomInt(min, max) {
+// 	return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
+    </script>
+
+</body>
+
+</html>

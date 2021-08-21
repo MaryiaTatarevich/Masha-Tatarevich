@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .field {
+            background: url('grass00.png');
+            width: 1105px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .row {
+
+            height: 85px;
+            margin: 0 auto;
+        }
+
+        .cell {
+            display: inline-block;
+            width: 85px;
+            height: 85px;
+        }
+
+        .class1 {
+            background: url('class_1_right_top.png')no-repeat;
+            background-position: 4px 0px;
+        }
+
+        .class2 {
+            background: url('class_2_left.top.png') no-repeat;
+            background-position: -7px 0px;
+        }
+
+        .class3 {
+            background: url('class_3_right_down.png') no-repeat;
+            background-position: 4px 0px;
+
+        }
+
+        .class4 {
+            background: url('class_4_left_down.png') no-repeat;
+            background-position: -7px 0px;
+        }
+
+        .class5 {
+            background: url('class_5_straight_vert.png');
+            background-position: 0px 0px;
+        }
+
+        .class6 {
+            background: url('class_6_straight_hor.png');
+            background-position: 0px 0px;
+        }
+
+
+        /* .white {
+             background: url('2_version.png') no-repeat;  
+            background-size: 85px 85px;
+            background-position: 0px 0px;
+        } */
+
+        .train {
+            width: 85px;
+            height: 85px;
+            position: absolute;
+            background: url('red_train_1.png') no-repeat;
+            background-size: 85px 50px;
+            left: 1000px;
+            top: 0;
+        }
+        .gate {
+            width: 85px;
+            height: 85px;
+            position: absolute;
+            background: url('gate.png') no-repeat;
+            background-size: 85px 50px;
+            /* background-position: 0px 0px; */
+            left: 1020px;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="field" class="field"></div>
+    <script>
+
+        let array = [
+            ['3', '3', '3', '3', '3', '1', '0', '0', '0', '0', '0', '0', '0'],
+            ['3', '3', '3', '3', '3', '2', '3', '3', '3', '3', '3', '3', '3'],
+            ['0', '0', '0', '0', '0', '4', '0', '0', '0', '0', '0', '0', '0'],
+            ['3', '3', '3', '3', '3', '2', '3', '3', '3', '3', '3', '3', '3'],
+            ['3', '3', '3', '3', '3', '2', '3', '3', '3', '3', '3', '3', '3'],
+            ['3', '3', '3', '3', '3', '2', '3', '3', '3', '3', '3', '3', '3'],
+            ['3', '3', '3', '3', '3', '2', '3', '3', '3', '3', '3', '3', '3']
+        ]
+
+        let field = document.getElementById('field')
+
+        for (let i = 0; i < array.length; i++) {
+            let div = document.createElement('div')
+            div.setAttribute('id', i)
+            div.setAttribute('class', 'row')
+            field.appendChild(div)
+            for (let k = 0; k < array[i].length; k++) {
+                if (array[i][k] === '0') {
+                    buildHorisont(i)
+                } else if (array[i][k] === '1') {
+                    buildRight(i)
+                } else if (array[i][k] === '2') {
+                    buildRoad(i)
+                } else if (array[i][k] === '3') {
+                    buildBlack(i)
+                } else if (array[i][k] === '4') {
+                    directionChangeCell(i)
+                }
+            }
+        }
+
+        function directionChangeCell(i) {// Построение меняющей направление ячейки
+            let iRow = document.getElementById(i);
+            let cell = document.createElement('div');
+            cell.setAttribute('class', 'cell class1');
+            cell.setAttribute('id', 'reversingCell');
+            iRow.appendChild(cell);
+        }
+
+        let reversingCell = document.getElementById('reversingCell');
+        reversingCell.addEventListener('click', directionChange)
+        function directionChange() {
+            if (reversingCell.classList.contains('class1')) {
+                reversingCell.classList.remove('class1')
+                reversingCell.classList.add('class2')
+            } else if (reversingCell.classList.contains('class2')) {
+                reversingCell.classList.remove('class2')
+                reversingCell.classList.add('class3')
+            } else if (reversingCell.classList.contains('class3')) {
+                reversingCell.classList.remove('class3')
+                reversingCell.classList.add('class4')
+            } else if (reversingCell.classList.contains('class4')) {
+                reversingCell.classList.remove('class4')
+                reversingCell.classList.add('class1')
+            }
+        }
+
+
+        function buildHorisont(i) {
+            let rowi = document.getElementById(i)
+            let divRed = document.createElement('div')
+            divRed.setAttribute('class', 'cell class6');
+            // divRed.setAttribute('class', 'class6');
+            rowi.appendChild(divRed)
+        }
+
+        function buildRight(i) {
+            let rowi = document.getElementById(i)
+            let divBlue = document.createElement('div')
+            divBlue.setAttribute('class', 'cell class1');
+            // divBlue.setAttribute('class', 'class1');
+            rowi.appendChild(divBlue)
+        }
+
+        function buildLeft(i) {
+            let rowi = document.getElementById(i)
+            let divLeft = document.createElement('div')
+            divLeft.setAttribute('class', 'cell class2');
+            rowi.appendChild(divLeft)
+        }
+
+
+        function buildRoad(i) {
+            let rowi = document.getElementById(i)
+            let divBlue = document.createElement('div')
+            divBlue.setAttribute('class', 'cell class5');
+            rowi.appendChild(divBlue)
+        }
+
+        function buildBlack(i) {
+            let rowi = document.getElementById(i)
+            let divBlack = document.createElement('div')
+            divBlack.setAttribute('class', 'cell white');
+            divBlack.setAttribute('id', 'white');
+            rowi.appendChild(divBlack)
+            // document.querySelector('#white').style.transform = `rotate(25deg)`;
+        }
+        function buildTrain() {
+            let train = document.createElement('div')
+            train.setAttribute('class', 'train');
+            train.setAttribute('id', 'train');
+            field.appendChild(train)
+
+        }
+        function buildGate() {
+            let gate = document.createElement('div')
+            gate.setAttribute('class', 'gate');
+            gate.setAttribute('id', 'gate');
+            field.appendChild(gate)
+
+        }
+        window.addEventListener('load', startGame)
+        buildTrain()
+        buildGate()
+        function startGame() {
+            let timer = setInterval(trainMove, 10)
+        }
+        
+        function trainMove() {
+  
+        }
+    </script>
+
+</body>
+
+</html>
