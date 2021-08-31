@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            /* ????? */
+
+        }
+
+        body {
+            margin: 100px;
+        }
+
+        .field {
+            width: 500px;
+            height: 500px;
+            background-color: cadetblue;
+            display: flex;
+            /* ????? */
+            flex-wrap: wrap;
+            /* ????? */
+            margin: 0 auto;
+            /* ????? */
+        }
+
+        .pixel {
+            width: 50px;
+            height: 50px;
+        }
+
+        .car {
+            width: 25px;
+            height: 25px;
+            background-color: coral;
+            transform: translate(50%, 100%);
+            border-radius: 50%;
+            
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        //создаем поле
+        let field = document.createElement('div');
+        document.body.appendChild(field).setAttribute('class', 'field');
+        //разбиваем поле на ячейки
+        for (let i = 0; i < 100; i++) {
+            let pixel = document.createElement('div');
+            field.appendChild(pixel).setAttribute('class', 'pixel')
+        }
+        //присваиваем координаты каждой ячейке
+        let pixel = document.getElementsByClassName('pixel');
+        let x = 1;
+        let y = 1;
+        for (let i = 0; i < 100; i++) {
+            if (x > 10) {
+                x = 1;
+                y++;
+            }
+            pixel[i].setAttribute('posX', x);
+            pixel[i].setAttribute('posY', y);
+            x++
+        }
+        //начальные координаты машинки posX = 5; posY = 1
+        let posX = 5;
+        let posY = 10;
+        //находим ячейку с такими координатами 
+        let currentPixel = [document.querySelector(`[posX= '${posX}'][posY= '${posY}']`)];
+        currentPixel[0].classList.add('currentPixel');
+        //создаем машинку
+        let car = document.createElement('div');
+        currentPixel[0].appendChild(car).setAttribute('class', 'car');
+        //создаем массив с дополнительными классами
+        let array = [
+            ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '2', '3', '3', '3', '3', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['5', '5', '5', '5', '2', '3', '3', '3', '3', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0']
+        ]
+
+        for (let i = 0; i < array.length; i++) {
+            for (let k = 0; k < array[i].length; k++) {
+                if (array[i][k] === '1') {
+                    let vertically = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
+                    vertically[0].classList.add('vertically');
+                }
+                else if (array[i][k] === '2') {
+                    let right = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
+                    right[0].classList.add('right');
+                }
+                else if (array[i][k] === '3') {
+                    let horizontallyRight = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
+                    horizontallyRight[0].classList.add('horizontallyRight');
+                }
+                else if (array[i][k] === '4') {
+                    let left = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
+                    left[0].classList.add('left');
+                }
+                else if (array[i][k] === '5') {
+                    let horizontallyLeft = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
+                    horizontallyLeft[0].classList.add('horizontallyLeft');
+                }
+
+            }
+        }
+
+
+
+
+        let stepY = 0;
+        let stepX = 0;
+        window.addEventListener('load', startGame)
+        function startGame() {
+            let timer = setInterval(carMove, 10)
+        }
+        function carMove() {
+            let currentCar = document.getElementsByClassName('car');//достаем машинку
+            let currentPixel = document.getElementsByClassName('currentPixel');//достаем родителя машинки
+            let topPosYCar = currentCar[0].getBoundingClientRect().top;
+            let topPosYPixel = currentPixel[0].getBoundingClientRect().top;
+            let resultY = topPosYCar - topPosYPixel
+            let topPosXrightCar = currentCar[0].getBoundingClientRect().right;
+            let topPosXrightPixel = currentPixel[0].getBoundingClientRect().right;
+            let resultXright = topPosXrightPixel - topPosXrightCar
+
+            let topPosXleftCar = currentCar[0].getBoundingClientRect().left;
+            let topPosXleftPixel = currentPixel[0].getBoundingClientRect().left;
+            let resultXleft =  topPosXleftCar - topPosXleftPixel
+            
+            let procentY = 100 - stepY
+            let procentX = 50 + stepX
+            if (resultY > 0 && currentPixel[0].classList.contains('vertically')) {
+                currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
+                stepY++
+            }
+            else if (resultY <= 0) {
+                //удаляем текущий класс с устаревшей ячейки
+                currentPixel[0].classList.remove('currentPixel');
+                //достаем клетку выше
+                posY--
+                //присваиваем класс клетке, которая выше 
+                let newPixel = [document.querySelector(`[posX='${posX}'][posY='${posY}']`)];
+                newPixel[0].classList.add('currentPixel');
+            }
+
+            if (resultXright > 0 && currentPixel[0].classList.contains('right')) {
+                currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
+                if(resultY>12.5){
+                    stepY++  
+                }
+                else(stepX++)
+                
+            }
+            else if (resultXright <= 0) {
+                //удаляем текущий класс с устаревшей ячейки
+                currentPixel[0].classList.remove('currentPixel');
+                //достаем клетку правее
+                posX++
+                //присваиваем текущий класс клетке, которая правее 
+                let newPixel = [document.querySelector(`[posX='${posX}'][posY='${posY}']`)];
+                newPixel[0].classList.add('currentPixel');
+            }
+
+            if (resultXright > 0 && currentPixel[0].classList.contains('horizontallyRight')) {
+                currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
+                stepX++
+            }
+
+            if (resultXleft > 0 && currentPixel[0].classList.contains('left')) {
+                currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
+                if(resultY>12.5){
+                    stepY++  
+                }
+                else(stepX--)
+                
+            }
+            else if (resultXleft <= 0) {
+                //удаляем текущий класс с устаревшей ячейки
+                currentPixel[0].classList.remove('currentPixel');
+                //достаем клетку левее
+                posX--
+                //присваиваем текущий класс клетке, которая левее 
+                let newPixel = [document.querySelector(`[posX='${posX}'][posY='${posY}']`)];
+                newPixel[0].classList.add('currentPixel');
+            }
+
+            if (resultXleft > 0 && currentPixel[0].classList.contains('horizontallyLeft')) {
+                currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
+                stepX--
+            }
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>

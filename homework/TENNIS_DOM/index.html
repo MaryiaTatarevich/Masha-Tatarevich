@@ -120,8 +120,9 @@
             let result = false
             let min = -1;
             let max = 1;
-            let dxBall
-            let dyBall
+  
+            let dxBall 
+            let dyBall 
             let randomX 
             let randomY 
             function start() {
@@ -135,20 +136,17 @@
                 randomX =  Math.floor(Math.random() * (max - min + 1)) + min;
                 randomY =  Math.floor(Math.random() * (max - min + 1)) + min;
                 if(randomX !==0 ){
-                    dxBall = randomX 
+                    dxBall  = randomX 
                 }else{
                     randomX = Math.floor(Math.random() * (max - min + 1)) + min;
                 }
                 if(randomY !==0 ){
-                    dyBall = randomY
+                    dyBall  = randomY
                 }else{
                     randomY = Math.floor(Math.random() * (max - min + 1)) + min;
-                }
+                } 
                 
-
                 aTimer.run()
-                console.log(dxBall)
-                console.log(dyBall)
             }
 
             function createBall() {
@@ -162,9 +160,11 @@
                 ballStartY = fieldElement.getBoundingClientRect().height / 2 - ball.getBoundingClientRect().height / 2;
                 ball.style.left = ballStartX + 'px';
                 ball.style.top = ballStartY + 'px';
-                actualBallX = ballStartX
+                actualBallX = ballStartX 
                 actualBallY = ballStartY
+
             }
+
 
             let leftDirection = '';
             let rightDirection = '';
@@ -199,9 +199,7 @@
 
             let yleft = 0;
             let yright = 0;
-
-            // let speedX = 1;
-            // let speedY = 1;          
+         
             function move() {
                 racketMovement()
                 let ballElement = document.getElementById('ball');
