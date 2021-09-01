@@ -10,13 +10,12 @@
         * {
             box-sizing: border-box;
             /* ????? */
-
         }
-
+        
         body {
             margin: 100px;
         }
-
+        
         .field {
             width: 500px;
             height: 500px;
@@ -28,19 +27,22 @@
             margin: 0 auto;
             /* ????? */
         }
-
+        
         .pixel {
             width: 50px;
             height: 50px;
         }
-
+        
         .car {
             width: 25px;
             height: 25px;
             background-color: coral;
             transform: translate(50%, 100%);
             border-radius: 50%;
-            
+        }
+        
+        .changeDirection {
+            background-color: red;
         }
     </style>
 </head>
@@ -68,25 +70,38 @@
             pixel[i].setAttribute('posY', y);
             x++
         }
+
         //начальные координаты машинки posX = 5; posY = 1
         let posX = 5;
         let posY = 10;
-        //находим ячейку с такими координатами 
-        let currentPixel = [document.querySelector(`[posX= '${posX}'][posY= '${posY}']`)];
-        currentPixel[0].classList.add('currentPixel');
-        //создаем машинку
-        let car = document.createElement('div');
-        currentPixel[0].appendChild(car).setAttribute('class', 'car');
+        let carNumber = 0;
+        //Функция создания машинки
+        function createCar(carNumber) {
+            //находим ячейку с такими координатами 
+            let currentPixel = [document.querySelector(`[posX= '${posX}'][posY= '${posY}']`)];
+            currentPixel[0].classList.add('currentPixel');
+            //создаем машинку
+            let car = document.createElement('div');
+            car.setAttribute('id', carNumber)
+            currentPixel[0].appendChild(car).setAttribute('class', 'car');
+        }
+
+        // //находим ячейку с такими координатами 
+        // let currentPixel = [document.querySelector(`[posX= '${posX}'][posY= '${posY}']`)];
+        // currentPixel[0].classList.add('currentPixel');
+        // //создаем машинку
+        // let car = document.createElement('div');
+        // currentPixel[0].appendChild(car).setAttribute('class', 'car');
         //создаем массив с дополнительными классами
         let array = [
             ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+            ['0', '5', '5', '5', '6', '3', '3', '3', '3', '0'],
             ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
             ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
+            ['0', '5', '5', '5', '6', '3', '3', '3', '3', '0'],
             ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
-            ['0', '0', '0', '0', '2', '3', '3', '3', '3', '0'],
             ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
-            ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
-            ['5', '5', '5', '5', '2', '3', '3', '3', '3', '0'],
+            ['5', '5', '5', '5', '6', '3', '3', '3', '3', '0'],
             ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0'],
             ['0', '0', '0', '0', '1', '0', '0', '0', '0', '0']
         ]
@@ -96,22 +111,22 @@
                 if (array[i][k] === '1') {
                     let vertically = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     vertically[0].classList.add('vertically');
-                }
-                else if (array[i][k] === '2') {
+                } else if (array[i][k] === '2') {
                     let right = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     right[0].classList.add('right');
-                }
-                else if (array[i][k] === '3') {
+                } else if (array[i][k] === '3') {
                     let horizontallyRight = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     horizontallyRight[0].classList.add('horizontallyRight');
-                }
-                else if (array[i][k] === '4') {
+                } else if (array[i][k] === '4') {
                     let left = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     left[0].classList.add('left');
-                }
-                else if (array[i][k] === '5') {
+                } else if (array[i][k] === '5') {
                     let horizontallyLeft = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     horizontallyLeft[0].classList.add('horizontallyLeft');
+                } else if (array[i][k] === '6') {
+                    let changeDirection = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
+                    changeDirection[0].classList.add('vertically');
+                    changeDirection[0].classList.add('changeDirection');
                 }
 
             }
@@ -122,13 +137,44 @@
 
         let stepY = 0;
         let stepX = 0;
+
+
+        //Создаем класс машинки
+        // class CarClass {
+        //     createCar() {
+        //         //начальные координаты машинки posX = 5; posY = 1
+        //         let posX = 5;
+        //         let posY = 10;
+        //         //находим ячейку с такими координатами 
+        //         let currentPixel = [document.querySelector(`[posX= '${posX}'][posY= '${posY}']`)];
+        //         currentPixel[0].classList.add('currentPixel');
+        //         //создаем машинку
+        //         let car = document.createElement('div');
+        //         currentPixel[0].appendChild(car).setAttribute('class', 'car');
+
+        //         // let topPosYCar = car.getBoundingClientRect().top;
+        //         // let topPosYPixel = currentPixel[0].getBoundingClientRect().top;
+        //         // let resultY = topPosYCar - topPosYPixel
+        //         // let procentY = 100 - stepY
+        //         // let procentX = 50 + stepX
+        //         // if (resultY > 0 && currentPixel[0].classList.contains('vertically')) {
+        //         //     car.style.transform = `translate(${procentX}%, ${procentY}%)`;
+        //         //     stepY++
+        //         // }
+        //     }
+        // }
+        // const newCar = new CarClass
         window.addEventListener('load', startGame)
+
         function startGame() {
-            let timer = setInterval(carMove, 10)
+            createCar(carNumber)
+            let timer = setInterval(carMove, 20)
         }
+
         function carMove() {
-            let currentCar = document.getElementsByClassName('car');//достаем машинку
-            let currentPixel = document.getElementsByClassName('currentPixel');//достаем родителя машинки
+            // let currentCar = newCar.createCar()
+            let currentCar = document.getElementsByClassName('car'); //достаем машинку
+            let currentPixel = document.getElementsByClassName('currentPixel'); //достаем родителя машинки
             let topPosYCar = currentCar[0].getBoundingClientRect().top;
             let topPosYPixel = currentPixel[0].getBoundingClientRect().top;
             let resultY = topPosYCar - topPosYPixel
@@ -138,15 +184,14 @@
 
             let topPosXleftCar = currentCar[0].getBoundingClientRect().left;
             let topPosXleftPixel = currentPixel[0].getBoundingClientRect().left;
-            let resultXleft =  topPosXleftCar - topPosXleftPixel
-            
+            let resultXleft = topPosXleftCar - topPosXleftPixel
+
             let procentY = 100 - stepY
             let procentX = 50 + stepX
             if (resultY > 0 && currentPixel[0].classList.contains('vertically')) {
                 currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
                 stepY++
-            }
-            else if (resultY <= 0) {
+            } else if (resultY <= 0) {
                 //удаляем текущий класс с устаревшей ячейки
                 currentPixel[0].classList.remove('currentPixel');
                 //достаем клетку выше
@@ -158,13 +203,11 @@
 
             if (resultXright > 0 && currentPixel[0].classList.contains('right')) {
                 currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
-                if(resultY>12.5){
-                    stepY++  
-                }
-                else(stepX++)
-                
-            }
-            else if (resultXright <= 0) {
+                if (resultY > 12.5) {
+                    stepY++
+                } else(stepX++)
+
+            } else if (resultXright <= 0) {
                 //удаляем текущий класс с устаревшей ячейки
                 currentPixel[0].classList.remove('currentPixel');
                 //достаем клетку правее
@@ -181,13 +224,11 @@
 
             if (resultXleft > 0 && currentPixel[0].classList.contains('left')) {
                 currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
-                if(resultY>12.5){
-                    stepY++  
-                }
-                else(stepX--)
-                
-            }
-            else if (resultXleft <= 0) {
+                if (resultY > 12.5) {
+                    stepY++
+                } else(stepX--)
+
+            } else if (resultXleft <= 0) {
                 //удаляем текущий класс с устаревшей ячейки
                 currentPixel[0].classList.remove('currentPixel');
                 //достаем клетку левее
@@ -201,11 +242,31 @@
                 currentCar[0].style.transform = `translate(${procentX}%, ${procentY}%)`;
                 stepX--
             }
+
+            // if (currentCar[0].style.transform = `translate(50%, -200%)`) {
+            //     carNumber++
+            //     createCar(carNumber)
+            // }
         }
 
-
-
-
+        //Выбираем все клетки изменяющие направление
+        let reversingCells = document.getElementsByClassName('changeDirection');
+        for (let i = 0; i < reversingCells.length; i++) {
+            reversingCells[i].addEventListener('click', () => directionChange(i))
+        }
+        //Функция для изменения направления 
+        function directionChange(i) {
+            if (reversingCells[i].classList.contains('vertically')) {
+                reversingCells[i].classList.remove('vertically')
+                reversingCells[i].classList.add('right')
+            } else if (reversingCells[i].classList.contains('right')) {
+                reversingCells[i].classList.remove('right')
+                reversingCells[i].classList.add('left')
+            } else if (reversingCells[i].classList.contains('left')) {
+                reversingCells[i].classList.remove('left')
+                reversingCells[i].classList.add('vertically')
+            }
+        }
     </script>
 </body>
 

@@ -15,45 +15,44 @@
             margin: 0 auto;
             /* border: solid 2px black; */
         }
-
+        
         #button {
             width: 50px;
             height: 25px;
             margin-left: 352px;
             margin-bottom: 30px;
         }
-
+        
         #score {
             font-size: 45px;
             padding-left: 310px;
         }
-
         /* #button{
         margin: 0 auto;
         } */
+        
         .racket {
             width: 15px;
             height: 100px;
             position: absolute;
         }
-
+        
         #left {
             background-color: cornflowerblue;
             left: 0;
         }
-
+        
         #right {
             background-color: darkolivegreen;
             right: 0;
         }
-
+        
         .ball {
             background-color: crimson;
             width: 50px;
             height: 50px;
             border-radius: 50%;
             position: absolute;
-
         }
     </style>
 </head>
@@ -62,6 +61,7 @@
     <div id="tennis"></div>
     <script>
         window.addEventListener('load', tennis)
+
         function tennis() {
             let tennis = document.getElementById('tennis');
             let button = document.createElement('button');
@@ -90,17 +90,17 @@
             rightRacket.setAttribute('id', 'right');
             field.appendChild(rightRacket);
 
-            let Timer = function () {
+            let Timer = function() {
                 let self = this;
                 let timer
                 this.running = false;
-                this.run = function () {
+                this.run = function() {
                     if (!self.running) {
                         self.running = true;
                         timer = setInterval(move, 10)
                     }
                 }
-                this.stopRun = function () {
+                this.stopRun = function() {
                     if (self.running) {
                         self.running = false;
                         clearInterval(timer)
@@ -120,32 +120,33 @@
             let result = false
             let min = -1;
             let max = 1;
-  
-            let dxBall 
-            let dyBall 
-            let randomX 
-            let randomY 
+
+            let dxBall
+            let dyBall
+            let randomX
+            let randomY
+
             function start() {
                 result = false
                 let findElement = document.getElementById('ball')
                 if (findElement) {
                     field.removeChild(findElement)
                     createBall()
-                } else (createBall())
+                } else(createBall())
 
-                randomX =  Math.floor(Math.random() * (max - min + 1)) + min;
-                randomY =  Math.floor(Math.random() * (max - min + 1)) + min;
-                if(randomX !==0 ){
-                    dxBall  = randomX 
-                }else{
+                randomX = Math.floor(Math.random() * (max - min + 1)) + min;
+                randomY = Math.floor(Math.random() * (max - min + 1)) + min;
+                if (randomX !== 0) {
+                    dxBall = randomX
+                } else {
                     randomX = Math.floor(Math.random() * (max - min + 1)) + min;
                 }
-                if(randomY !==0 ){
-                    dyBall  = randomY
-                }else{
+                if (randomY !== 0) {
+                    dyBall = randomY
+                } else {
                     randomY = Math.floor(Math.random() * (max - min + 1)) + min;
-                } 
-                
+                }
+
                 aTimer.run()
             }
 
@@ -160,7 +161,7 @@
                 ballStartY = fieldElement.getBoundingClientRect().height / 2 - ball.getBoundingClientRect().height / 2;
                 ball.style.left = ballStartX + 'px';
                 ball.style.top = ballStartY + 'px';
-                actualBallX = ballStartX 
+                actualBallX = ballStartX
                 actualBallY = ballStartY
 
             }
@@ -169,7 +170,7 @@
             let leftDirection = '';
             let rightDirection = '';
 
-            window.addEventListener("keydown", function (event) {
+            window.addEventListener("keydown", function(event) {
                 switch (event.code) {
                     case 'ArrowDown':
                         rightDirection = 'rightDown';
@@ -187,19 +188,17 @@
                 }
             })
 
-            document.addEventListener("keyup", function (event) {
+            document.addEventListener("keyup", function(event) {
                 if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
                     rightDirection = '';
-                }
-
-                else if (event.code === 'ShiftLeft' || event.code === 'ControlLeft') {
+                } else if (event.code === 'ShiftLeft' || event.code === 'ControlLeft') {
                     leftDirection = '';
                 }
             })
 
             let yleft = 0;
             let yright = 0;
-         
+
             function move() {
                 racketMovement()
                 let ballElement = document.getElementById('ball');
@@ -208,17 +207,17 @@
                 let goal = document.getElementById('score')
                 if (0 < actualBallX && actualBallX < (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width)) {
                     if (actualBallY > (fieldElement.getBoundingClientRect().height - ballElement.getBoundingClientRect().height) || actualBallY < 0) {
-                        dyBall = - dyBall
+                        dyBall = -dyBall
 
                     } else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width - 15)) {
                         if ((actualBallY + ballElement.getBoundingClientRect().width) > yright && (actualBallY + ballElement.getBoundingClientRect().width) < (yright + 100)) {
-                            dxBall = - dxBall
+                            dxBall = -dxBall
                         }
 
 
                     } else if (actualBallX <= 15) {
                         if ((actualBallY + ballElement.getBoundingClientRect().width) > yleft && (actualBallY + ballElement.getBoundingClientRect().width) < (yleft + 100)) {
-                            dxBall = - dxBall
+                            dxBall = -dxBall
                         }
                     }
 
@@ -226,13 +225,11 @@
                     actualBallY += dyBall
                     ballElement.style.left = actualBallX + 'px';
                     ballElement.style.top = actualBallY + 'px';
-                }
-                else if (actualBallX <= 0 && !result) {
+                } else if (actualBallX <= 0 && !result) {
                     gameOver()
                     leftScore += 1;
                     goal.innerHTML = `${leftScore}:${rightScore}`
-                }
-                else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width) && !result) {
+                } else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width) && !result) {
                     gameOver()
                     rightScore += 1;
                     goal.innerHTML = `${leftScore}:${rightScore}`
@@ -246,8 +243,7 @@
                         rightRacket.style.top = yright + 'px'
 
 
-                    }
-                    else {
+                    } else {
                         rightDirection = '';
                     }
                 }
@@ -277,6 +273,7 @@
                     }
                 }
             }
+
             function gameOver() {
                 let ballElement = document.getElementById('ball');
                 ballElement.style.left = actualBallX + 'px';
@@ -285,16 +282,16 @@
             }
         }
 
-//         Получение случайного дробного числа между min и max:
+        //         Получение случайного дробного числа между min и max:
 
-// function getRandomArbitary(min, max) {
-// 	return Math.random() * (max - min) + min;
-// }
-// Получение случайного целого числа между min и max:
+        // function getRandomArbitary(min, max) {
+        // 	return Math.random() * (max - min) + min;
+        // }
+        // Получение случайного целого числа между min и max:
 
-// function getRandomInt(min, max) {
-// 	return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+        // function getRandomInt(min, max) {
+        // 	return Math.floor(Math.random() * (max - min + 1)) + min;
+        // }
     </script>
 
 </body>
