@@ -167,6 +167,7 @@
             myCar.style.backgroundColor = `${colorsArray[colorNumber]}`
             myCar.style.top = 25 + 'px'
             myCar.style.left = 12 + 'px'
+            startPixel[0].setAttribute('id', `currentPixel${carNumber}`)
         }
 
         //начальные координаты каждой машинки posX = 5; posY = 1
@@ -184,11 +185,14 @@
 
         function startGame() {
             createCar(carNumber)
-            timer = setInterval(game, 20)
+            timer = setInterval(game, 40)
         }
 
         function game() {
+
             for (let i = 0; i < allCarsArray.length; i++) {
+            let currentCellsExistence = document.getElementById(`currentPixel${i}`)
+            if(currentCellsExistence)
                 carMove(i)
             }
 
@@ -280,11 +284,12 @@
            //let startCell = document.getElementsByClassName('startPixel')  
            //startCell[0].remove(currentCar)
            currentCar.style.backgroundColor = 'transparent'
+           currentPixel.removeAttribute("id");
         }
 
         
-        let posX = posXStart
-        let posY = posYStart
+         let posX = posXStart
+         let posY = posYStart
         //Функция движения машинки
         function carMove(carNumber) {
             let currentCar = document.getElementById(carNumber); //Достаем необходимую машинку
@@ -306,15 +311,15 @@
             let topPosXleftCar = currentCar.getBoundingClientRect().left;
             let resultXleft = topPosXleftCar - topPosXleftPixel
 
-            if (resultYStart > 0 && startPixel[0].classList.contains('startPixel')) {
-                currentCar.style.top = coordinateY(carNumber) + 'px'
+           //if (resultYStart > 0 && startPixel[0].classList.contains('startPixel')) {
+                //currentCar.style.top = coordinateY(carNumber) + 'px'
 
-            } else if (resultYStart <= 0 && !currentPixel) {
-                let nextPixel = [document.querySelector(`[posX= '${posX}'][posY= '${startPixelY(carNumber)}']`)];
-                nextPixel[0].setAttribute('id', `currentPixel${carNumber}`);
-            }
+            //} //else if (resultYStart <= 0 && !currentPixel) {
+                //let nextPixel = [document.querySelector(`[posX= '${posX}'][posY= '${startPixelY(carNumber)}']`)];
+                //nextPixel[0].setAttribute('id', `currentPixel${carNumber}`);
+            //}
 
-            if (resultY > 0 && currentPixel.classList.contains('vertically')) {
+             if (resultY > 0 && currentPixel.classList.contains('vertically')) {
                 currentCar.style.top = coordinateY(carNumber) + 'px'
             } else if (resultY <= 0 && currentPixel.classList.contains('vertically')) {
                 let newCell = currentPixelY(carNumber)
