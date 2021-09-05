@@ -1,0 +1,124 @@
+* {
+    box-sizing: border-box;
+    /* ????? */
+}
+#allGame{
+    display: flex;
+    flex-flow:column;
+    position: relative;
+
+    width: 1200px;
+    height: 800px; 
+}
+
+ .menu span{
+    margin: 10px;
+    
+} 
+.menu button{
+    background-color: #07848a;
+    margin: 10px;
+    font-size: 30px;
+    border-radius: 10%;
+    box-shadow:
+    inset 0 0 3px 1px rgba(0,0,0,.8),
+    inset rgba(0,0,0,.3) -5px -5px 8px 5px,
+    1px 1px 1px rgba(255,255,255,.1),
+    -2px -2px 5px rgba(0,0,0,.5); 
+    
+}
+/* .playingField{
+    display: flex;
+     position: absolute;
+    top:50px; 
+    left:50px;  
+    
+    } */
+.menu{
+    position: absolute; 
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    top:50px; 
+    right:50px;
+    font-family: 'IBM Plex Sans Arabic', sans-serif; 
+    font-size: 30px;
+    color: brown;
+}
+
+/* body {
+    margin: 100px;
+} */
+
+.field {
+    width: 600px;
+    height: 600px;
+    /* background: url('/myProject/clouds/squares_glow_blue.png') no-repeat; */
+    /* background-color: cadetblue; */
+    display: flex;
+    /* ????? */
+    flex-wrap: wrap;
+    /* ????? */
+    margin: 0 auto;
+    /* ????? */
+}
+
+/* #score {
+    margin-left: 300px;
+} */
+
+.startPixel {
+    position: relative;
+}
+
+.pixel {
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    background: url('img/grass_1.png') no-repeat;
+    background-size: 101% auto;
+    box-shadow:
+    inset 0 0 3px 1px rgba(0,0,0,.8),
+    inset rgba(0,0,0,.3) -5px -5px 8px 5px,
+    /* inset rgba(255,255,255,.5) 5px 5px 8px 5px, */
+    1px 1px 1px rgba(255,255,255,.1),
+    -2px -2px 5px rgba(0,0,0,.5);  
+}
+.car {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    position: absolute;
+}
+.left{
+    background: url('img/left.png') no-repeat;
+    background-size: 123.5% auto;
+    background-position: -11.6px -0.7px;
+
+}
+.vertically{
+    background: url('img/vertically.png') no-repeat;
+    background-size: 101% auto;
+    background-position: 0px -9px;
+}
+.right{
+    background: url('img/right.png') no-repeat;
+    background-size: 123.5% auto;
+    background-position: -0.2px -0.8px;
+    
+    /* background-color: limegreen; */
+}
+.horizontallyRight, .horizontallyLeft{            
+    background: url('img/horizont.png') no-repeat;
+    background-size: 147% auto;
+    background-position: -9px -0px;
+}
+.border{
+    background: url('img/stones.png') no-repeat;
+    background-size: 100%;
+    /*background-position: -11.6px -0.7px; */
+}
+
+/* .changeDirection {
+    background-color: darkolivegreen;
+} */

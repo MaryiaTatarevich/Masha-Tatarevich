@@ -1,0 +1,13 @@
+#content {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+#content a {
+    display: flex;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 30px;
+    text-decoration: none;
+    margin: 15px;
+    color: black;
+}
