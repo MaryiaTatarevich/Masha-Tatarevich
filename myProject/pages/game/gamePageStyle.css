@@ -16,15 +16,17 @@
     
 } 
 .menu button{
-    background-color: #07848a;
+    background-color: #07848a; 
     margin: 10px;
     font-size: 30px;
+    color: #39230e;
     border-radius: 10%;
     box-shadow:
     inset 0 0 3px 1px rgba(0,0,0,.8),
     inset rgba(0,0,0,.3) -5px -5px 8px 5px,
     1px 1px 1px rgba(255,255,255,.1),
     -2px -2px 5px rgba(0,0,0,.5); 
+    width: 150px;
     
 }
 /* .playingField{
@@ -43,7 +45,7 @@
     right:50px;
     font-family: 'IBM Plex Sans Arabic', sans-serif; 
     font-size: 30px;
-    color: brown;
+    color: #39230e;
 }
 
 /* body {
@@ -51,8 +53,8 @@
 } */
 
 .field {
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     /* background: url('/myProject/clouds/squares_glow_blue.png') no-repeat; */
     /* background-color: cadetblue; */
     display: flex;
@@ -80,7 +82,6 @@
     box-shadow:
     inset 0 0 3px 1px rgba(0,0,0,.8),
     inset rgba(0,0,0,.3) -5px -5px 8px 5px,
-    /* inset rgba(255,255,255,.5) 5px 5px 8px 5px, */
     1px 1px 1px rgba(255,255,255,.1),
     -2px -2px 5px rgba(0,0,0,.5);  
 }
@@ -89,6 +90,11 @@
     height: 25px;
     border-radius: 50%;
     position: absolute;
+    box-shadow:
+    inset 0 0 3px 1px rgba(0,0,0,.8),
+    inset rgba(0,0,0,.3) -5px -5px 8px 5px,
+    1px 1px 1px rgba(255,255,255,.1),
+    -2px -2px 5px rgba(0,0,0,.5);  
 }
 .left{
     background: url('img/left.png') no-repeat;
@@ -97,7 +103,8 @@
 
 }
 .vertically{
-    background: url('img/vertically.png') no-repeat;
+     background: url('img/vertically.png') no-repeat; 
+  
     background-size: 101% auto;
     background-position: 0px -9px;
 }
@@ -105,8 +112,6 @@
     background: url('img/right.png') no-repeat;
     background-size: 123.5% auto;
     background-position: -0.2px -0.8px;
-    
-    /* background-color: limegreen; */
 }
 .horizontallyRight, .horizontallyLeft{            
     background: url('img/horizont.png') no-repeat;

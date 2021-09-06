@@ -1,10 +1,11 @@
 let timer
+let gameSituation = true
 function gamePageLoading() {
     if (timer) {
         clearInterval(timer)
-        move() 
+        move()
     } else {
-        move()  
+        move()
     }
 }
 
@@ -35,10 +36,12 @@ function move() {
         let pause = document.createElement('button');
         let textPause = document.createTextNode('Pause');
         let back = document.createElement('button');
-        let textBack = document.createTextNode('Back');
+        let textBack = document.createTextNode('Menu');
         pause.appendChild(textPause);
         back.appendChild(textBack);
         back.addEventListener('click', switchToMainPage)
+        pause.addEventListener('click', stopGame)
+        pause.setAttribute('id', 'pause');
         menu.appendChild(pause);
         menu.appendChild(back);
         //создаем поле
@@ -46,7 +49,7 @@ function move() {
         let field = document.createElement('div');
         playingField.appendChild(field).setAttribute('class', 'field');
         //разбиваем поле на ячейки
-        for (let i = 0; i < 144; i++) {
+        for (let i = 0; i < 169; i++) {
             let pixel = document.createElement('div');
             field.appendChild(pixel).setAttribute('class', 'pixel')
         }
@@ -54,8 +57,8 @@ function move() {
         let pixel = document.getElementsByClassName('pixel');
         let x = 1;
         let y = 1;
-        for (let i = 0; i < 144; i++) {
-            if (x > 12) {
+        for (let i = 0; i < 169; i++) {
+            if (x > 13) {
                 x = 1;
                 y++;
             }
@@ -63,25 +66,40 @@ function move() {
             pixel[i].setAttribute('posY', y);
             x++
         }
+        let gameSituation = true
+        function stopGame() {
+            if (gameSituation) {
+                clearInterval(timer)
+                gameSituation = false
 
+                let pause = document.getElementById('pause');
+                pause.innerHTML = 'Continue'
+
+            } else {
+                timer = setInterval(game, 40)
+                gameSituation = true
+                pause.innerHTML = 'Pause'
+            }
+        }
 
         //создаем массив с дополнительными классами
         let array = [
-            ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
-            ['b', 'i', 'i', 'i', 'i', '4', 'i', 'i', 'i', 'i', 'i', 'b'],
-            ['b', '5', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '3', 'b'],
-            ['b', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
-            ['b', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
-            ['b', '6', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '2', 'b'],
-            ['b', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
-            ['b', '7', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '1', 'b'],
-            ['b', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
-            ['b', '8', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '0', 'b'],
-            ['b', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
-            ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b']
+            ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', '4', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', '5', 'l', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '3', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', '6', 'l', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '2', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', '7', 'l', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '1', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', '8', 'l', 'l', 'l', 'l', 'c', 'r', 'r', 'r', 'r', '0', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', 'i', 'i', 'i', 'i', 'i', 'v', 'i', 'i', 'i', 'i', 'i', 'b'],
+            ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b']
         ]
 
-        let colorsArray = ['red', 'green', 'yellow', 'blue', 'pink', 'purple', 'black', 'brown', 'greenyellow']
+        let colorsArray = ['red', 'darkgreen', 'yellow', 'blue', 'hotpink', 'purple', 'black', 'tomato', 'orange']
         let regexpRight = /[0-3]/;//диапозон от 0-3
         let regexpVertical = /[4]/;// 4
         let regexpLeft = /[5-8]/;//диапозон от 5-8
@@ -96,9 +114,7 @@ function move() {
                 } else if (array[i][k] === 'r') {
                     let horizontallyRight = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     horizontallyRight[0].classList.add('horizontallyRight');
-                } //else if (array[i][k] === 'l') {
-                //let left = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
-                //left[0].classList.add('left');
+                }
                 else if (array[i][k] === 'l') {
                     let horizontallyLeft = [document.querySelector(`[posX='${k + 1}'][posY='${i + 1}']`)];
                     horizontallyLeft[0].classList.add('horizontallyLeft');
@@ -151,8 +167,8 @@ function move() {
         }
 
         //начальные координаты каждой машинки posX = 5; posY = 1
-        let posXStart = 6;
-        let posYStart = 11;
+        let posXStart = 7;
+        let posYStart = 12;
 
         //находим ячейку с такими координатами 
         let startPixel = [document.querySelector(`[posX= '${posXStart}'][posY= '${posYStart}']`)];
@@ -161,29 +177,29 @@ function move() {
         let startNewCar = 0
         let createNewCar = true
         createCar(carNumber)
-        
+
         timer = setInterval(game, 40)
 
         function game() {
             let findGame = document.getElementById('allGame')
             if (findGame) {
-            for (let i = 0; i < allCarsArray.length; i++) {
-                let currentCellsExistence = document.getElementById(`currentPixel${i}`)
-                if (currentCellsExistence)
-                    carMove(i)
-            }
+                for (let i = 0; i < allCarsArray.length; i++) {
+                    let currentCellsExistence = document.getElementById(`currentPixel${i}`)
+                    if (currentCellsExistence)
+                        carMove(i)
+                }
 
-            if (startNewCar < 100) {
-                startNewCar++
+                if (startNewCar < 100) {
+                    startNewCar++
 
-            } else if (startNewCar === 100 && createNewCar) {
-                //createNewCar = false
-                carNumber++
-                createCar(carNumber)
-                startNewCar = 0
-            }
-        }else return
-    }
+                } else if (startNewCar === 100 && createNewCar) {
+                    //createNewCar = false
+                    carNumber++
+                    createCar(carNumber)
+                    startNewCar = 0
+                }
+            } else return
+        }
 
         //ф-ция  координаты Y для каждой машинки
         function coordinateY(carNumber) {
@@ -266,11 +282,12 @@ function move() {
                 lives.innerHTML = `Lives:${myLives}`
                 if (myLives === 0) {
                     clearInterval(timer)
+                    let recordsTable = document.getElementsByClassName('score')
+                    console.log(recordsTable)
                 }
             }
-            //let startCell = document.getElementsByClassName('startPixel')  
-            //startCell[0].remove(currentCar)
-            currentCar.style.backgroundColor = 'transparent'
+
+            currentCar.remove()
             currentPixel.removeAttribute("id");
         }
 
@@ -296,14 +313,6 @@ function move() {
             let resultXright = topPosXrightPixel - topPosXrightCar
             let topPosXleftCar = currentCar.getBoundingClientRect().left;
             let resultXleft = topPosXleftCar - topPosXleftPixel
-
-            //if (resultYStart > 0 && startPixel[0].classList.contains('startPixel')) {
-            //currentCar.style.top = coordinateY(carNumber) + 'px'
-
-            //} //else if (resultYStart <= 0 && !currentPixel) {
-            //let nextPixel = [document.querySelector(`[posX= '${posX}'][posY= '${startPixelY(carNumber)}']`)];
-            //nextPixel[0].setAttribute('id', `currentPixel${carNumber}`);
-            //}
 
             if (resultY > 0 && currentPixel.classList.contains('vertically')) {
                 currentCar.style.top = coordinateY(carNumber) + 'px'

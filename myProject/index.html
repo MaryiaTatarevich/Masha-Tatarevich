@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="pages/main/mainPage.js"></script>
     <script src="pages/game/gamePage.js"></script>
+    <script src="pages/score/scorePage.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="pages/main/mainPageStyle.css" rel="stylesheet">
     <link href="pages/game/gamePageStyle.css" rel="stylesheet">
+    <link href="pages/score/scorePageStyle.css" rel="stylesheet">
     <title>Application</title>
     <style>
         .app {
-            /*overflow: hidden; Отображается только область внутри элемента, остальное будет скрыто. */
+            overflow: hidden;
+            /* Отображается только область внутри элемента, остальное будет скрыто. */
             position: absolute;
             width: 100%;
             padding-bottom: 50%;
@@ -24,9 +27,10 @@
             background-position: 0px 13px;
         }
 
-        /* #content {
+        #content {
             position: relative;
-        } */
+            z-index: 1;
+        }
 
 
         .app img {
@@ -41,26 +45,32 @@
             pointer-events: none;
         }
 
-        /* @keyframes animCloud{
+        @keyframes animCloud {
             from {
                 transform: translateX(100%);
             }
+
             to {
                 transform: translateX(-100%);
             }
         }
+
         .cloud1 {
             animation: animCloud 30s infinite linear;
         }
+
         .cloud2 {
             animation: animCloud 40s infinite linear;
         }
+
         .cloud3 {
             animation: animCloud 60s infinite linear;
         }
+
         .cloud4 {
             animation: animCloud 80s infinite linear;
-        } */
+        }
+
         /* #app {
             /* position: fixed;
             top: 0;
@@ -75,10 +85,11 @@
 <body>
     <div class="app">
         <div id="content"></div>
-        <!-- <img src="clouds/cloud-01.png" class="cloud1" alt="">
-     <img src="clouds/cloud-02.png" class="cloud2" alt="">
-     <img src="clouds/cloud-03.png" class="cloud3" alt="">
-     <img src="clouds/cloud-04.png" class="cloud4" alt=""> -->
+        <img src="clouds/cloud-01.png" class="cloud1" alt="">
+        <img src="clouds/cloud-02.png" class="cloud2" alt="">
+        <img src="clouds/cloud-03.png" class="cloud3" alt="">
+        <img src="clouds/cloud-04.png" class="cloud4" alt="">
+
     </div>
     <script>
         window.onhashchange = switchToStateFromURLHash;// Событие проиходит, когда изменяется hash
@@ -96,7 +107,7 @@
         }
 
         function switchToRecordsPage() {
-
+            location.hash = { pagename: 'Records' }.pagename;
         }
 
         let SPAState = {}
