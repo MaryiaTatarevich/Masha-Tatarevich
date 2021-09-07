@@ -14,6 +14,7 @@ function move() {
     if (!findGame) {
         let allGame = document.createElement('div');
         allGame.setAttribute('id', 'allGame');
+        allGame.setAttribute('class', 'allGame');
         document.body.appendChild(allGame)
         let menu = document.createElement('div');
         let playingField = document.createElement('div');

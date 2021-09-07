@@ -1,3 +1,68 @@
+body{
+    min-width: 1100px;
+}
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.app {
+    overflow: hidden;
+    /* Отображается только область внутри элемента, остальное будет скрыто. */
+    position: fixed;
+    width: 100%;
+    padding-bottom: 50%;
+    height: 100%;
+    background: url(clouds/squares_glow_blue.png);
+    background-size: 40%;
+    /*масштабирование фона */
+    background-position: 0px 13px;
+}
+
+#content {
+    position: relative;
+    z-index: 1;
+}
+
+
+.app img {
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes animCloud {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.cloud1 {
+    animation: animCloud 30s infinite linear;
+}
+
+.cloud2 {
+    animation: animCloud 40s infinite linear;
+}
+
+.cloud3 {
+    animation: animCloud 60s infinite linear;
+}
+
+.cloud4 {
+    animation: animCloud 80s infinite linear;
+}
+
+
 #content {
     display: flex;
     flex-flow: column;

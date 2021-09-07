@@ -4,12 +4,21 @@
 }
 #allGame{
     display: flex;
-    flex-flow:column;
+    justify-content: space-between;
+    align-content: center;
     position: relative;
-
-    width: 1200px;
-    height: 800px; 
+    padding: 50px;
+    width: 1000px;
+    height: 650px; 
+    margin: 0 auto;
 }
+
+/* .menu .playingField{
+    position: fixed;
+} */
+/* .playingField{
+    margin-right: 100px;
+} */
 
  .menu span{
     margin: 10px;
@@ -29,13 +38,7 @@
     width: 150px;
     
 }
-/* .playingField{
-    display: flex;
-     position: absolute;
-    top:50px; 
-    left:50px;  
-    
-    } */
+
 .menu{
     position: absolute; 
     display: flex;
@@ -48,26 +51,15 @@
     color: #39230e;
 }
 
-/* body {
-    margin: 100px;
-} */
 
 .field {
     width: 650px;
     height: 650px;
-    /* background: url('/myProject/clouds/squares_glow_blue.png') no-repeat; */
-    /* background-color: cadetblue; */
     display: flex;
-    /* ????? */
     flex-wrap: wrap;
-    /* ????? */
     margin: 0 auto;
-    /* ????? */
+    margin-right: 100px;
 }
-
-/* #score {
-    margin-left: 300px;
-} */
 
 .startPixel {
     position: relative;
@@ -123,7 +115,3 @@
     background-size: 100%;
     /*background-position: -11.6px -0.7px; */
 }
-
-/* .changeDirection {
-    background-color: darkolivegreen;
-} */
