@@ -82,7 +82,7 @@ function move() {
             }
         }
 
-        //создаем массив с дополнительными классами
+        //создаем массив с дополнительными классами window.innerWidth
         let array = [
             ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
             ['b', 'i', 'i', 'i', 'i', 'i', '4', 'i', 'i', 'i', 'i', 'i', 'b'],
@@ -99,7 +99,7 @@ function move() {
             ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b']
         ]
 
-        let colorsArray = ['red', 'darkgreen', 'yellow', 'blue', 'hotpink', 'purple', 'black', 'tomato', 'orange']
+        let colorsArray = ['red', 'darkgreen', 'yellow', 'black', 'hotpink', 'purple', 'blue', 'white', 'orange']
         let regexpRight = /[0-3]/;//диапозон от 0-3
         let regexpVertical = /[4]/;// 4
         let regexpLeft = /[5-8]/;//диапозон от 5-8
@@ -282,13 +282,74 @@ function move() {
                 lives.innerHTML = `Lives:${myLives}`
                 if (myLives === 0) {
                     clearInterval(timer)
-                    let recordsTable = document.getElementsByClassName('score')
-                    console.log(recordsTable)
+                    //проверить рекордную таблицу 
+                    // checkRecordsTable(myScore)
+                    findInfo()
                 }
             }
-
             currentCar.remove()
             currentPixel.removeAttribute("id");
+        }
+
+        //function checkRecordsTable(newScore) {
+        let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+        let myName = 'Tatarevich_Maryia_Project'
+        let updatePassword
+        function storeInfo() {
+            updatePassword = Math.random();
+            $.ajax({
+                url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+                data: { f: 'LOCKGET', n: myName, p: updatePassword },
+                success: lockGetReady, error: errorHandler
+            }
+            );
+        }
+        function lockGetReady(callresult) {
+            if (callresult.error != undefined)
+                alert(callresult.error);
+            else {
+                // нам всё равно, что было прочитано -
+                // всё равно перезаписываем
+                $.ajax({
+                    url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+                    data: { f: 'UPDATE', n: myName, v: JSON.stringify(result), p: updatePassword },
+                    success: updateReady, error: errorHandler
+                }
+                );
+            }
+        }
+        function updateReady(callresult) {
+            if (callresult.error != undefined)
+                alert(callresult.error);
+        }
+        function findInfo() {
+            $.ajax(
+                {
+                    url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+                    data: { f: 'READ', n: myName },
+                    success: readInfo, error: errorHandler
+                });
+
+        }
+        function compareScore(a,b){//сортирует от меньшего к большему
+            return a.score-b.score
+        }
+        function readInfo(callresult) {
+            if (callresult.error != undefined)
+                alert(callresult.error);
+            else if (callresult.result != "") {
+                result = JSON.parse(callresult.result);
+                result.sort(compareScore)
+                for (let i = 0; i < result.length; i++) {
+                    if (result[i].score < myScore) {
+                        let playerName = prompt('Введите имя')
+                        result[i].score = myScore
+                        result[i].player = playerName
+                        storeInfo()
+                        return
+                    }
+                }
+            }
         }
 
         let posX = posXStart

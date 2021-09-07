@@ -8,6 +8,7 @@
     <script src="pages/main/mainPage.js"></script>
     <script src="pages/game/gamePage.js"></script>
     <script src="pages/score/scorePage.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="pages/main/mainPageStyle.css" rel="stylesheet">
     <link href="pages/game/gamePageStyle.css" rel="stylesheet">
@@ -102,10 +103,6 @@
             location.hash = { pagename: 'Game' }.pagename;
         }
 
-        function switchToRulesPage() {
-
-        }
-
         function switchToRecordsPage() {
             location.hash = { pagename: 'Records' }.pagename;
         }
@@ -120,8 +117,6 @@
                 SPAState = { pagename: 'Game' }
             } else if (stateStr === 'Records') {
                 SPAState = { pagename: 'Records' }
-            } else if (stateStr === 'Rules') {
-                SPAState = { pagename: 'Rules' }
             } else (SPAState = { pagename: 'Main' })
 
 
@@ -134,10 +129,7 @@
                     gamePageLoading();
                     break;
                 case 'Records':
-                    pageHTML += recordsPageLoading();
-                    break;
-                case 'Rules':
-                    pageHTML += rulesPageLoading();
+                    recordsPageLoading();
                     break;
             }
 
