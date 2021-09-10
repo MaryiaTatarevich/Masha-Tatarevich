@@ -3,7 +3,6 @@ let myName = 'Tatarevich_Maryia_Project'
 //var updatePassword
 function creation() {
     let records = []
-
     let jsonValue = JSON.stringify(records)
     $.ajax({
         url: ajaxHandlerScript,
@@ -56,7 +55,7 @@ function compareScore(a,b){
              <th>${result[i].score}</th></tr>`
      }
      scorePage += '</table>'  
-     let findResult = document.getElementById('allRecords')
+    //  let findResult = document.getElementById('allRecords')
     //   if (findResult) {
     //  findResult.remove()
      let allRecords = document.createElement('div');

@@ -24,20 +24,28 @@
         <img src="./pages/main/clouds/cloud-02.png" class="cloud2" alt="">
         <img src="./pages/main/clouds/cloud-03.png" class="cloud3" alt="">
         <img src="./pages/main/clouds/cloud-04.png" class="cloud4" alt="">
+        <audio id="allClick">
+            <source src="./pages/game/sounds/audioClick.mp3">
+        </audio>
 
     </div>
     <script>
+        let clickAudio = document.getElementById('allClick');
+
         window.onhashchange = switchToStateFromURLHash;// Событие проиходит, когда изменяется hash
 
         function switchToMainPage() {
+            clickAudio.play()
             location.hash = { pagename: 'Main' }.pagename;
         }
 
         function switchToGamePage() {
+            clickAudio.play()
             location.hash = { pagename: 'Game' }.pagename;
         }
 
         function switchToRecordsPage() {
+            clickAudio.play()
             location.hash = { pagename: 'Records' }.pagename;
         }
 

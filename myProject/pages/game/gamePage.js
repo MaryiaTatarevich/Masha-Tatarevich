@@ -1,5 +1,6 @@
 let timer
 let gameSituation = true
+
 function gamePageLoading() {
     if (timer) {
         clearInterval(timer)
@@ -8,14 +9,13 @@ function gamePageLoading() {
         move()
     }
 }
-
 function move() {
     let findGame = document.getElementById('allGame')
     if (!findGame) {
         let allGame = document.createElement('div');
         allGame.setAttribute('id', 'allGame');
         allGame.setAttribute('class', 'allGame');
-        document.body.appendChild(allGame)
+        
         let menu = document.createElement('div');
         menu.setAttribute('class', 'menu');
         let score = document.createElement('span');
@@ -41,11 +41,14 @@ function move() {
         pause.setAttribute('id', 'pause');
         menu.appendChild(pause);
         menu.appendChild(back);
+        
+        document.body.appendChild(allGame);
         //создаем поле
 
         let field = document.createElement('div');
         allGame.appendChild(field).setAttribute('class', 'field');
         allGame.appendChild(menu)
+
         //разбиваем поле на ячейки
         for (let i = 0; i < 169; i++) {
             let pixel = document.createElement('div');
@@ -66,6 +69,7 @@ function move() {
         }
         let gameSituation = true
         function stopGame() {
+            clickAudio.play()
             if (gameSituation) {
                 clearInterval(timer)
                 gameSituation = false
@@ -279,6 +283,7 @@ function move() {
                 let lives = document.getElementById('lives');
                 myLives -= 1;
                 lives.innerHTML = `Lives:${myLives}`
+                window.navigator.vibrate(1000)
                 if (myLives === 0) {
                     clearInterval(timer)
                     //проверить рекордную таблицу 
@@ -489,6 +494,7 @@ function move() {
         let reversingCells = document.getElementsByClassName('changeDirection');
         for (let i = 0; i < reversingCells.length; i++) {
             reversingCells[i].addEventListener('click', () => directionChange(i))
+            reversingCells[i].addEventListener('click', () => clickAudio.play())
         }
         //Функция для изменения направления 
         function directionChange(i) {
@@ -503,5 +509,7 @@ function move() {
                 reversingCells[i].classList.add('vertically')
             }
         }
+        
     }
 }
+
