@@ -17,11 +17,7 @@ function move() {
         allGame.setAttribute('class', 'allGame');
         document.body.appendChild(allGame)
         let menu = document.createElement('div');
-        let playingField = document.createElement('div');
-        playingField.setAttribute('class', 'playingField');
         menu.setAttribute('class', 'menu');
-        allGame.appendChild(playingField)
-        allGame.appendChild(menu)
         let score = document.createElement('span');
         let lives = document.createElement('span');
         let myScore = 0;
@@ -48,7 +44,8 @@ function move() {
         //создаем поле
 
         let field = document.createElement('div');
-        playingField.appendChild(field).setAttribute('class', 'field');
+        allGame.appendChild(field).setAttribute('class', 'field');
+        allGame.appendChild(menu)
         //разбиваем поле на ячейки
         for (let i = 0; i < 169; i++) {
             let pixel = document.createElement('div');
@@ -100,7 +97,7 @@ function move() {
             ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b']
         ]
 
-        let colorsArray = ['red', 'darkgreen', 'yellow', 'black', 'hotpink', 'purple', 'blue', 'white', 'orange']
+        let colorsArray = ['red', 'darkgreen', 'orange', 'aqua', 'yellow', 'purple', 'blue', 'ghostwhite', 'hotpink']
         let regexpRight = /[0-3]/;//диапозон от 0-3
         let regexpVertical = /[4]/;// 4
         let regexpLeft = /[5-8]/;//диапозон от 5-8
@@ -277,6 +274,7 @@ function move() {
                 let score = document.getElementById('score');
                 myScore += 1
                 score.innerHTML = `Score:${myScore}`
+                
             } else {
                 let lives = document.getElementById('lives');
                 myLives -= 1;
