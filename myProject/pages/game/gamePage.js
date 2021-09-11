@@ -15,7 +15,7 @@ function move() {
         let allGame = document.createElement('div');
         allGame.setAttribute('id', 'allGame');
         allGame.setAttribute('class', 'allGame');
-        
+
         let menu = document.createElement('div');
         menu.setAttribute('class', 'menu');
         let score = document.createElement('span');
@@ -41,7 +41,7 @@ function move() {
         pause.setAttribute('id', 'pause');
         menu.appendChild(pause);
         menu.appendChild(back);
-        
+
         document.body.appendChild(allGame);
         //создаем поле
 
@@ -77,7 +77,7 @@ function move() {
                 let pause = document.getElementById('pause');
                 pause.innerHTML = 'Continue'
 
-            } else {
+            } else if(myLives!==0) {
                 timer = setInterval(game, 40)
                 gameSituation = true
                 pause.innerHTML = 'Pause'
@@ -278,12 +278,16 @@ function move() {
                 let score = document.getElementById('score');
                 myScore += 1
                 score.innerHTML = `Score:${myScore}`
-                
+
             } else {
                 let lives = document.getElementById('lives');
                 myLives -= 1;
                 lives.innerHTML = `Lives:${myLives}`
-                window.navigator.vibrate(1000)
+                currentPixel.style.animation = '0.5s shake';
+                currentPixel.addEventListener('animationend', function () {
+                    currentPixel.style.removeProperty('animation');
+                });
+                window.navigator.vibrate(500)
                 if (myLives === 0) {
                     clearInterval(timer)
                     //проверить рекордную таблицу 
@@ -335,8 +339,8 @@ function move() {
                 });
 
         }
-        function compareScore(a,b){//сортирует от меньшего к большему
-            return a.score-b.score
+        function compareScore(a, b) {//сортирует от меньшего к большему
+            return a.score - b.score
         }
         function readInfo(callresult) {
             if (callresult.error != undefined)
@@ -509,7 +513,7 @@ function move() {
                 reversingCells[i].classList.add('vertically')
             }
         }
-        
+
     }
 }
 
