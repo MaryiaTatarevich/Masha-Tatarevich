@@ -15,38 +15,39 @@
             margin: 0 auto;
             /* border: solid 2px black; */
         }
-        
+
         #button {
             width: 50px;
             height: 25px;
             margin-left: 352px;
             margin-bottom: 30px;
         }
-        
+
         #score {
             font-size: 45px;
             padding-left: 310px;
         }
+
         /* #button{
         margin: 0 auto;
         } */
-        
+
         .racket {
             width: 15px;
             height: 100px;
             position: absolute;
         }
-        
+
         #left {
             background-color: cornflowerblue;
             left: 0;
         }
-        
+
         #right {
             background-color: darkolivegreen;
             right: 0;
         }
-        
+
         .ball {
             background-color: crimson;
             width: 50px;
@@ -90,17 +91,17 @@
             rightRacket.setAttribute('id', 'right');
             field.appendChild(rightRacket);
 
-            let Timer = function() {
+            let Timer = function () {
                 let self = this;
                 let timer
                 this.running = false;
-                this.run = function() {
+                this.run = function () {
                     if (!self.running) {
                         self.running = true;
                         timer = setInterval(move, 10)
                     }
                 }
-                this.stopRun = function() {
+                this.stopRun = function () {
                     if (self.running) {
                         self.running = false;
                         clearInterval(timer)
@@ -123,19 +124,20 @@
 
             let dxBall
             let dyBall
-            let randomX
-            let randomY
+            // let randomX
+            // let randomY
 
             function start() {
                 result = false
                 let findElement = document.getElementById('ball')
+
                 if (findElement) {
                     field.removeChild(findElement)
                     createBall()
-                } else(createBall())
+                } else (createBall())
 
-                randomX = Math.floor(Math.random() * (max - min + 1)) + min;
-                randomY = Math.floor(Math.random() * (max - min + 1)) + min;
+                let randomX = Math.floor(Math.random() * (max - min + 1)) + min;
+                let randomY = Math.floor(Math.random() * (max - min + 1)) + min;
                 if (randomX !== 0) {
                     dxBall = randomX
                 } else {
@@ -146,6 +148,8 @@
                 } else {
                     randomY = Math.floor(Math.random() * (max - min + 1)) + min;
                 }
+                console.log(randomX)
+                console.log(randomY)
 
                 aTimer.run()
             }
@@ -170,7 +174,7 @@
             let leftDirection = '';
             let rightDirection = '';
 
-            window.addEventListener("keydown", function(event) {
+            window.addEventListener("keydown", function (event) {
                 switch (event.code) {
                     case 'ArrowDown':
                         rightDirection = 'rightDown';
@@ -188,7 +192,7 @@
                 }
             })
 
-            document.addEventListener("keyup", function(event) {
+            document.addEventListener("keyup", function (event) {
                 if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
                     rightDirection = '';
                 } else if (event.code === 'ShiftLeft' || event.code === 'ControlLeft') {
@@ -208,31 +212,39 @@
                 if (0 < actualBallX && actualBallX < (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width)) {
                     if (actualBallY > (fieldElement.getBoundingClientRect().height - ballElement.getBoundingClientRect().height) || actualBallY < 0) {
                         dyBall = -dyBall
-
-                    } else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width - 15)) {
-                        if ((actualBallY + ballElement.getBoundingClientRect().width) > yright && (actualBallY + ballElement.getBoundingClientRect().width) < (yright + 100)) {
-                            dxBall = -dxBall
-                        }
-
-
-                    } else if (actualBallX <= 15) {
-                        if ((actualBallY + ballElement.getBoundingClientRect().width) > yleft && (actualBallY + ballElement.getBoundingClientRect().width) < (yleft + 100)) {
-                            dxBall = -dxBall
-                        }
                     }
+
+                    if (actualBallX === (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width - 15)) {
+                        if ((actualBallY + ((ballElement.getBoundingClientRect().width) / 2)) >= yright && (actualBallY + (ballElement.getBoundingClientRect().width / 2)) <= (yright + 100)) {
+                            dxBall = -dxBall
+                        } 
+                    }
+                    if (actualBallX > (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width-15) && !result) {
+                            gameOver()
+                            rightScore += 1;
+                            goal.innerHTML = `${leftScore}:${rightScore}`
+                            console.log(yleft)
+                            console.log(yright)
+                        }
+
+
+                    if (actualBallX === 15) {
+                        if ((actualBallY + (ballElement.getBoundingClientRect().width / 2)) >= yleft && (actualBallY + (ballElement.getBoundingClientRect().width / 2)) <= (yleft + 100)) {
+                            dxBall = -dxBall
+                        }
+                    } if (actualBallX < 15 && !result) {
+                            gameOver()
+                            leftScore += 1;
+                            goal.innerHTML = `${leftScore}:${rightScore}`
+                            console.log(ballElement.getBoundingClientRect().width)
+                            console.log(ballElement.getBoundingClientRect().height)
+                        }
+                    
 
                     actualBallX += dxBall
                     actualBallY += dyBall
                     ballElement.style.left = actualBallX + 'px';
                     ballElement.style.top = actualBallY + 'px';
-                } else if (actualBallX <= 0 && !result) {
-                    gameOver()
-                    leftScore += 1;
-                    goal.innerHTML = `${leftScore}:${rightScore}`
-                } else if (actualBallX >= (fieldElement.getBoundingClientRect().width - ballElement.getBoundingClientRect().width) && !result) {
-                    gameOver()
-                    rightScore += 1;
-                    goal.innerHTML = `${leftScore}:${rightScore}`
                 }
             }
 
