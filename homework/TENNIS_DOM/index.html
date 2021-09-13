@@ -124,8 +124,8 @@
 
             let dxBall
             let dyBall
-            // let randomX
-            // let randomY
+             let randomX
+             let randomY
 
             function start() {
                 result = false
@@ -136,21 +136,20 @@
                     createBall()
                 } else (createBall())
 
-                let randomX = Math.floor(Math.random() * (max - min + 1)) + min;
-                let randomY = Math.floor(Math.random() * (max - min + 1)) + min;
+                randomX = Math.floor(Math.random() * (max - min + 1)) + min;
+                while(randomX===0){
+                    randomX = Math.floor(Math.random() * (max - min + 1)) + min;  
+                }
                 if (randomX !== 0) {
                     dxBall = randomX
-                } else {
-                    randomX = Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+                randomY = Math.floor(Math.random() * (max - min + 1)) + min;
+                while(randomY===0){
+                    randomY= Math.floor(Math.random() * (max - min + 1)) + min;  
                 }
                 if (randomY !== 0) {
                     dyBall = randomY
-                } else {
-                    randomY = Math.floor(Math.random() * (max - min + 1)) + min;
                 }
-                console.log(randomX)
-                console.log(randomY)
-
                 aTimer.run()
             }
 
@@ -223,8 +222,6 @@
                             gameOver()
                             rightScore += 1;
                             goal.innerHTML = `${leftScore}:${rightScore}`
-                            console.log(yleft)
-                            console.log(yright)
                         }
 
 
@@ -236,8 +233,6 @@
                             gameOver()
                             leftScore += 1;
                             goal.innerHTML = `${leftScore}:${rightScore}`
-                            console.log(ballElement.getBoundingClientRect().width)
-                            console.log(ballElement.getBoundingClientRect().height)
                         }
                     
 
