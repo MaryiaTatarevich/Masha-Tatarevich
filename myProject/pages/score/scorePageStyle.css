@@ -3,16 +3,30 @@
     flex-flow:column;
     position: relative;
     align-items: center;
-    width: 500px;
-    height: 800px; 
-    margin-left: 450px;
 }
 
 table{
-    border: 4px solid black;
+    border: 4px solid #39230e;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    /* border-radius: 45px; */
+    width: 450px;
+    height: 450px; 
+    border-spacing: 0;
+    text-align: center;
+    margin: 25px;
 }
 th, tr{
-    border: 1px solid black;
+    border: 1px solid #39230e;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 20px;
+    color: #39230e;
     width: 100px;
     height: 50px;
 }
+caption{
+    color: #39230e;
+    margin: 25px;
+    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-size: 30px;
+}
+

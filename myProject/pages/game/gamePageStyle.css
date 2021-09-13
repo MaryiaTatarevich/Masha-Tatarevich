@@ -1,36 +1,32 @@
-/* * {
-    box-sizing: border-box;
-    /* max-width: 100%; 
-} */
-body{
+
+body,html{
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
 #allGame{
-
-     display: flex;
+    min-width: 1000px;
+    max-width: 1000px;
+    max-height: 700px; 
+    min-height: 700px;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    position: relative;  
-    /* width: 100%;
-    height: 100%;*/
-    max-width: 1000px;
-    height: 700px; 
-   
-    /* width: 100%;
-    height: 100vh; */
-    /* width: 1000px;
-    height: 700px;  */
-     margin: 0 auto; 
+    margin: 0 auto; 
 }
-/* .pixel:hover {
-    /* Start the shake animation and make the animation last for 0.5 seconds 
-    animation:0.5s shake;
-    /* When the animation is finished, start again 
-    /* animation-iteration-count: infinite; 
-} */
+
+/* @media (orientation: portrait) { 
+    #allGame {    display: flex;
+        flex-direction: column;
+    width: 100%;}
+
+  } */
+ /* @media (orientation: landscape) { 
+    #allGame {transform: scale(0.8);}
+
+  } */
 
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -56,9 +52,9 @@ body{
  .menu span{
     margin: 10px;   
 } 
-.menu button{
-    background-color: #07848a; 
-    margin: 10px;
+ button{
+    background-color: #057479; 
+    margin: 15px;
     font-size: 30px;
     color: #39230e;
     border-radius: 10%;
@@ -67,7 +63,8 @@ body{
     inset rgba(0,0,0,.3) -5px -5px 8px 5px,
     1px 1px 1px rgba(255,255,255,.1),
     -2px -2px 5px rgba(0,0,0,.5); 
-    width: 150px;   
+    width: 150px;
+    height: 50px;   
 }
 
 .menu{
@@ -81,18 +78,16 @@ body{
     font-family: 'IBM Plex Sans Arabic', sans-serif; 
     font-size: 30px;
     color: #39230e;
+    position: relative;
 }
 
 
 
 
 .field {
-
     position: relative;
     width: 650px;
     height: 650px;
-    min-width: 650px;
-    min-height: 650px;
     display: flex;
     flex-wrap: wrap;
 }
@@ -149,5 +144,18 @@ body{
 .border{
     background: url('img/stones.png') no-repeat;
     background-size: 100%;
-    /*background-position: -11.6px -0.7px; */
+}
+
+#entryField{
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 50px;
+    top: 100px;
+    left: 100px;
+    width: 700px;
+    background-color:rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    
 }

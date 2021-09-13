@@ -49,6 +49,16 @@ function move() {
         allGame.appendChild(field).setAttribute('class', 'field');
         allGame.appendChild(menu)
 
+        // let entryField = document.createElement('div')
+        // entryField.setAttribute('id','entryField')
+        // let entryInscription = document.createElement('h1')
+        // let textEntryInscription = document.createTextNode('Congratulations! you are in the top 5 players. Please enter your name.')
+        // let entryName = document.createElement('input')
+        // entryInscription.appendChild(textEntryInscription)
+        // entryField.appendChild(entryInscription)
+        // entryField.appendChild(entryName)
+        // document.body.appendChild(entryField)
+
         //разбиваем поле на ячейки
         for (let i = 0; i < 169; i++) {
             let pixel = document.createElement('div');
@@ -290,8 +300,6 @@ function move() {
                 window.navigator.vibrate(500)
                 if (myLives === 0) {
                     clearInterval(timer)
-                    //проверить рекордную таблицу 
-                    // checkRecordsTable(myScore)
                     findInfo()
                 }
             }
@@ -350,6 +358,7 @@ function move() {
                 result.sort(compareScore)
                 for (let i = 0; i < result.length; i++) {
                     if (result[i].score < myScore) {
+                  
                         let playerName = prompt('Введите имя')
                         result[i].score = myScore
                         result[i].player = playerName
