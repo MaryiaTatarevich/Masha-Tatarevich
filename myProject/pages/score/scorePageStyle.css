@@ -7,7 +7,7 @@
 
 table{
     border: 4px solid #39230e;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: inherit;
     /* border-radius: 45px; */
     width: 450px;
     height: 450px; 
@@ -17,7 +17,7 @@ table{
 }
 th, tr{
     border: 1px solid #39230e;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: inherit;
     font-size: 20px;
     color: #39230e;
     width: 100px;
@@ -26,7 +26,7 @@ th, tr{
 caption{
     color: #39230e;
     margin: 25px;
-    font-family: 'IBM Plex Sans Arabic', sans-serif;
+    font-family: inherit;
     font-size: 30px;
 }
 

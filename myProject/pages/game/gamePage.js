@@ -1,5 +1,37 @@
 let timer
 let gameSituation = true
+let myScore = 0;
+let updatePassword
+
+
+// let updatePassword
+function storeInfo() {
+    updatePassword = Math.random();
+    $.ajax({
+        url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+        data: { f: 'LOCKGET', n: myName, p: updatePassword },
+        success: lockGetReady, error: errorHandler
+    }
+    );
+}
+function lockGetReady(callresult) {
+    if (callresult.error != undefined)
+        alert(callresult.error);
+    else {
+        // нам всё равно, что было прочитано -
+        // всё равно перезаписываем
+        $.ajax({
+            url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+            data: { f: 'UPDATE', n: myName, v: JSON.stringify(result), p: updatePassword },
+            success: updateReady, error: errorHandler
+        }
+        );
+    }
+}
+function updateReady(callresult) {
+    if (callresult.error != undefined)
+        alert(callresult.error);
+}
 
 function gamePageLoading() {
     if (timer) {
@@ -20,7 +52,7 @@ function move() {
         menu.setAttribute('class', 'menu');
         let score = document.createElement('span');
         let lives = document.createElement('span');
-        let myScore = 0;
+        // let myScore = 0;
         let myLives = 5;
         let textScore = document.createTextNode(`Score:${myScore}`);
         let textLives = document.createTextNode(`Lives:${myLives}`);
@@ -47,17 +79,7 @@ function move() {
 
         let field = document.createElement('div');
         allGame.appendChild(field).setAttribute('class', 'field');
-        allGame.appendChild(menu)
-
-        // let entryField = document.createElement('div')
-        // entryField.setAttribute('id','entryField')
-        // let entryInscription = document.createElement('h1')
-        // let textEntryInscription = document.createTextNode('Congratulations! you are in the top 5 players. Please enter your name.')
-        // let entryName = document.createElement('input')
-        // entryInscription.appendChild(textEntryInscription)
-        // entryField.appendChild(entryInscription)
-        // entryField.appendChild(entryName)
-        // document.body.appendChild(entryField)
+        allGame.appendChild(menu);
 
         //разбиваем поле на ячейки
         for (let i = 0; i < 169; i++) {
@@ -87,7 +109,7 @@ function move() {
                 let pause = document.getElementById('pause');
                 pause.innerHTML = 'Continue'
 
-            } else if(myLives!==0) {
+            } else if (myLives !== 0) {
                 timer = setInterval(game, 40)
                 gameSituation = true
                 pause.innerHTML = 'Pause'
@@ -308,36 +330,36 @@ function move() {
         }
 
         //function checkRecordsTable(newScore) {
-        let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
-        let myName = 'Tatarevich_Maryia_Project'
-        let updatePassword
-        function storeInfo() {
-            updatePassword = Math.random();
-            $.ajax({
-                url: ajaxHandlerScript, type: 'POST', dataType: 'json',
-                data: { f: 'LOCKGET', n: myName, p: updatePassword },
-                success: lockGetReady, error: errorHandler
-            }
-            );
-        }
-        function lockGetReady(callresult) {
-            if (callresult.error != undefined)
-                alert(callresult.error);
-            else {
-                // нам всё равно, что было прочитано -
-                // всё равно перезаписываем
-                $.ajax({
-                    url: ajaxHandlerScript, type: 'POST', dataType: 'json',
-                    data: { f: 'UPDATE', n: myName, v: JSON.stringify(result), p: updatePassword },
-                    success: updateReady, error: errorHandler
-                }
-                );
-            }
-        }
-        function updateReady(callresult) {
-            if (callresult.error != undefined)
-                alert(callresult.error);
-        }
+        // let ajaxHandlerScript = "https://fe.it-academy.by/AjaxStringStorage2.php";
+        // let myName = 'Tatarevich_Maryia_Project'
+        // // let updatePassword
+        // function storeInfo() {
+        //     updatePassword = Math.random();
+        //     $.ajax({
+        //         url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+        //         data: { f: 'LOCKGET', n: myName, p: updatePassword },
+        //         success: lockGetReady, error: errorHandler
+        //     }
+        //     );
+        // }
+        // function lockGetReady(callresult) {
+        //     if (callresult.error != undefined)
+        //         alert(callresult.error);
+        //     else {
+        //         // нам всё равно, что было прочитано -
+        //         // всё равно перезаписываем
+        //         $.ajax({
+        //             url: ajaxHandlerScript, type: 'POST', dataType: 'json',
+        //             data: { f: 'UPDATE', n: myName, v: JSON.stringify(result), p: updatePassword },
+        //             success: updateReady, error: errorHandler
+        //         }
+        //         );
+        //     }
+        // }
+        // function updateReady(callresult) {
+        //     if (callresult.error != undefined)
+        //         alert(callresult.error);
+        // }
         function findInfo() {
             $.ajax(
                 {
@@ -358,11 +380,12 @@ function move() {
                 result.sort(compareScore)
                 for (let i = 0; i < result.length; i++) {
                     if (result[i].score < myScore) {
-                  
-                        let playerName = prompt('Введите имя')
-                        result[i].score = myScore
-                        result[i].player = playerName
-                        storeInfo()
+                        let value = result[i]
+                        getNewRecord(value)
+                        // // let playerName = prompt('Введите имя')
+                        // result[i].score = myScore
+                        // result[i].player = makeChanges()
+                        // storeInfo()
                         return
                     }
                 }
@@ -526,3 +549,36 @@ function move() {
     }
 }
 
+function getNewRecord(value) {
+    let number = value
+    let dataEntryWindow = document.createElement('div');
+    dataEntryWindow.setAttribute('id', 'dataEntryWindow');
+    dataEntryInscription = document.createElement('span');
+    dataEntryInscription.setAttribute('class','text')
+    let textdataEntryInscription = document.createTextNode('Congratulations! You are in the top 5 players.');
+    dataEntryInscription.appendChild(textdataEntryInscription);
+    // dataEntryInscription.setAttribute('class','form-label')
+    let enterName = document.createElement('input');
+    enterName.setAttribute('id', 'enterName');
+    enterName.setAttribute('class', 'form-control');
+    enterName.setAttribute('placeholder', 'Please enter your name.');
+    let confirmationButton = document.createElement('button');
+    let confirmationButtonText = document.createTextNode('OK');
+    confirmationButton.appendChild(confirmationButtonText);
+    confirmationButton.addEventListener('click', () => makeChanges(number));
+
+
+    dataEntryWindow.appendChild(dataEntryInscription)
+    dataEntryWindow.appendChild(enterName)
+    dataEntryWindow.appendChild(confirmationButton)
+    document.body.appendChild(dataEntryWindow)
+}
+function makeChanges(number) {
+    let enterNameValue = document.getElementById('enterName').value;
+    number.score = myScore
+    number.player = enterNameValue
+    let deleteDataEntryWindow = document.getElementById('dataEntryWindow');
+    deleteDataEntryWindow.remove();
+    storeInfo()
+    return
+}

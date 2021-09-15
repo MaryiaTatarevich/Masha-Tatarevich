@@ -9,6 +9,7 @@ body,html{
 
 #allGame{
     max-width: 1200px;
+    min-height: 750px;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -64,7 +65,8 @@ body,html{
     1px 1px 1px rgba(255,255,255,.1),
     -2px -2px 5px rgba(0,0,0,.5); 
     width: 150px;
-    height: 50px;   
+    height: 50px;
+    font-family: inherit;   
 }
 
 .menu{
@@ -74,7 +76,7 @@ body,html{
     align-items: center;
     top:50px; 
     right:50px;
-    font-family: 'IBM Plex Sans Arabic', sans-serif; 
+    font-family: inherit; 
     font-size: 30px;
     color: #39230e;
     z-index: 1;
@@ -84,13 +86,16 @@ body,html{
 
 
 .field {
-    position: relative;
+    /* position: relative; */
+    min-height: 650px;
+    min-width: 650px;
     width: 650px;
     height: 650px;
     margin-top: 50px;
     margin-bottom: 50px;
     display: flex;
     flex-wrap: wrap;
+    z-index: 1;
 }
 
 .startPixel {
@@ -147,16 +152,40 @@ body,html{
     background-size: 100%;
 }
 
-#entryField{
+#dataEntryWindow{
+    z-index: 2;
     position: absolute;
     display: flex;
     flex-flow: column;
     align-items: center;
-    padding: 50px;
-    top: 100px;
-    left: 100px;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
     width: 700px;
     background-color:rgba(255, 255, 255, 0.7);
-    border-radius: 15px;
-    
+    border-radius: 15px;   
+}
+.form-control{
+    margin: 20px;
+        display: block;
+        width: 90%;
+        padding: .375rem .75rem;
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: .25rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        font-family: inherit
+}
+
+.text{
+    font-size: 30px;
 }
