@@ -86,10 +86,17 @@ function compareScore(a, b) {
 function gamePageLoading() {
     //получаем текущие размеры окна браузера
     windowWidth = window.innerWidth;
+    //обнуляем результаты 
+    myScore = 0;
+    myLives = 5;
+   
     console.log(windowWidth)
 
     let findGame = document.getElementById('allGame');
     if (!findGame) {
+        creationGameArea()
+    }else{
+        findGame.remove()
         creationGameArea()
     }
     if (timer) {
@@ -120,12 +127,17 @@ function creationGameArea() {
     let textPause = document.createTextNode('Pause');
     let back = document.createElement('button');
     let textBack = document.createTextNode('Menu');
+    let newGame = document.createElement('button');
+    let textnewGame = document.createTextNode('New Game');
     pause.appendChild(textPause);
     back.appendChild(textBack);
+    newGame.appendChild(textnewGame);
     back.addEventListener('click', switchToMainPage)
     pause.addEventListener('click', stopGame)
+    newGame.addEventListener('click', gamePageLoading)
     pause.setAttribute('id', 'pause');
     menu.appendChild(pause);
+    menu.appendChild(newGame);
     menu.appendChild(back);
     document.body.appendChild(allGame);
     //создаем поле
@@ -442,7 +454,6 @@ function carMove(carNumber) {
 }
 //Функция остановки игры (кнопка паузы)
 function stopGame() {
-    clickAudio.play()
     if (gameSituation) {
         clearInterval(timer)
         gameSituation = false
@@ -450,7 +461,9 @@ function stopGame() {
         let pause = document.getElementById('pause');
         pause.innerHTML = 'Continue'
 
-    } else if (myLives !== 0) {
+    } else if (myLives !== 0) {   
+        if (timer) {
+        clearInterval(timer)}
         timer = setInterval(game, 40)
         gameSituation = true
         pause.innerHTML = 'Pause'
@@ -496,6 +509,11 @@ function move() {
 
     let posX = posXStart
     let posY = posYStart
+
+let allButtons = document.getElementsByTagName('button');
+for(let l=0; l<allButtons.length; l++){
+    allButtons[l].addEventListener('click', () => clickAudio.play())  
+}
 
 
     //Выбираем все клетки изменяющие направление
