@@ -2,32 +2,22 @@
 body,html{
      width: 100%;
     height: 100%; 
-    min-width: 1000px;
-    min-height: 750px;
+    /* min-width: 1000px;
+    min-height: 750px; */
     overflow: hidden;
 }
 
 #allGame{
-    max-width: 1200px;
-    min-height: 750px;
-    height: 100%;
+position: absolute;
+top: 50%;
+left: 50%;
+transform:translate(-50%, -50%);
+
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin: 0 auto; 
 }
-
-/* @media (orientation: portrait) { 
-    #allGame {    display: flex;
-        flex-direction: column;
-    width: 100%;}
-
-  } */
- /* @media (max-height:750px) { 
-    #allGame {transform: scale(0.9);}
-
-  } */
 
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
@@ -42,13 +32,6 @@ body,html{
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-
- /* .menu .playingField{
-    position: fixed;
-} 
- .playingField{
-    margin-right: 100px;
-}  */
 
  .menu span{
     margin: 10px;   
@@ -82,13 +65,7 @@ body,html{
     z-index: 1;
 }
 
-
-
-
 .field {
-    /* position: relative; */
-    min-height: 650px;
-    min-width: 650px;
     width: 650px;
     height: 650px;
     margin-top: 50px;
@@ -188,4 +165,35 @@ body,html{
 
 .text{
     font-size: 30px;
+}
+
+@media (max-width: 1200px){
+    .pixel {
+        width: 50px;
+        height: 50px;}
+        .car {
+            width: 25px;
+            height: 25px;}
+         .field{
+
+          width: 650px;
+            height: 650px;}
+
+
+}
+@media (max-width: 992px){
+    .pixel {
+        width: 40px;
+        height: 40px;}
+        .car {
+            width: 20px;
+            height: 20px;}
+         .field{
+
+          width: 520px;
+            height: 520px;}
+    
+}
+@media (max-width: 650px){
+    
 }
