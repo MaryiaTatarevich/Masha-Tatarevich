@@ -89,13 +89,13 @@ function gamePageLoading() {
     //обнуляем результаты 
     myScore = 0;
     myLives = 5;
-   
+
     console.log(windowWidth)
 
     let findGame = document.getElementById('allGame');
     if (!findGame) {
         creationGameArea()
-    }else{
+    } else {
         findGame.remove()
         creationGameArea()
     }
@@ -461,9 +461,10 @@ function stopGame() {
         let pause = document.getElementById('pause');
         pause.innerHTML = 'Continue'
 
-    } else if (myLives !== 0) {   
+    } else if (myLives !== 0) {
         if (timer) {
-        clearInterval(timer)}
+            clearInterval(timer)
+        }
         timer = setInterval(game, 40)
         gameSituation = true
         pause.innerHTML = 'Pause'
@@ -502,18 +503,18 @@ function move() {
     //номер первой машинки 0
     carNumber = 0;
     createCar(carNumber);
-   
+
     timer = setInterval(game, 40);
-    
+
     startNewCar = 0
 
     let posX = posXStart
     let posY = posYStart
 
-let allButtons = document.getElementsByTagName('button');
-for(let l=0; l<allButtons.length; l++){
-    allButtons[l].addEventListener('click', () => clickAudio.play())  
-}
+    let allButtons = document.getElementsByTagName('button');
+    for (let l = 0; l < allButtons.length; l++) {
+        allButtons[l].addEventListener('click', () => clickAudio.play())
+    }
 
 
     //Выбираем все клетки изменяющие направление

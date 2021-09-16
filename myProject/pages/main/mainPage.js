@@ -10,6 +10,8 @@ function mainPageLoading() {
     let mainPage =
         `<a href="#Game" onclick="switchToGamePage()"><span>New Game</span></a>
     <a href="#Records" onclick="switchToRecordsPage()"><span>Records</span></a>
+    <a href="#Rules" onclick="switchToRulesPage()"><span>Rules</span></a>
+    <a href="#About" onclick="switchToAboutPage()"><span>About</span></a>
     <div id ="musicIcon" onclick = 'music()'></div>`
     return mainPage
     
