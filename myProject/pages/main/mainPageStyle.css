@@ -15,8 +15,9 @@ html, body{
 .app {
     overflow: hidden;
     /* Отображается только область внутри элемента, остальное будет скрыто. */
-    position: relative; 
+    /* position: relative;  */
     width: 100%; 
+    height: 100%; 
     padding-bottom: 50%; 
      background: url(clouds/squares_glow_blue.png); 
     background-size: 40%;
