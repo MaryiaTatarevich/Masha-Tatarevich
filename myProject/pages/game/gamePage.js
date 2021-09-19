@@ -85,19 +85,20 @@ function compareScore(a, b) {
 //Загрузка страницы игры
 function gamePageLoading() {
     let windowHeight = window.innerHeight;
-    console.log(windowHeight)
+    // console.log(windowHeight)
     //Отслеживание изменения ориентации
-    window.addEventListener("orientationchange", function () {
-        windowHeight = window.innerHeight;
-        console.log(windowHeight)
-    })
-
-
+    // window.addEventListener("orientationchange", function () {
+    //     windowHeight = window.innerHeight;
+    //     console.log(windowHeight)
+    // })
+    window.onbeforeunload = function (evt) {
+        let message = "Вы уверены что хотите выполнить это действие?";
+        evt.returnValue = message;
+        return message;
+    }
     //обнуляем результаты 
     myScore = 0;
     myLives = 5;
-
-
     let findGame = document.getElementById('allGame');
     if (!findGame) {
         creationGameArea()
@@ -110,21 +111,17 @@ function gamePageLoading() {
         if (windowHeight <= 450) {
             timer = setInterval(game, 100);
             move()
-            console.log('100')
         } else {
             timer = setInterval(game, 40);
             move()
-            console.log('40')
         }
     } else {
         if (windowHeight <= 450) {
             timer = setInterval(game, 100);
             move()
-            console.log('100')
         } else {
             timer = setInterval(game, 40);
             move()
-            console.log('40')
         }
     }
 }

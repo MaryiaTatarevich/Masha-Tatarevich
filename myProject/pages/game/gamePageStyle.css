@@ -100,7 +100,6 @@ align-items: center;
     background: url('img/left.png') no-repeat;
     background-size: 123.5% auto;
     background-position: -11.6px -0.7px;
-
 }
 .vertically{
      background: url('img/vertically.png') no-repeat; 
@@ -161,55 +160,6 @@ align-items: center;
     font-size: 30px;
 }
 
-/* @media (max-width: 1200px){
-    #allGame{
-         width: 992px;   
-    }
-    .menu{
-        font-size: 20px;
-    }
-    button{
-        font-size: 20px; 
-        width: 130px;
-        height: 40px;
-    }
-    .pixel {
-        width: 40px;
-        height: 40px;}
-        .car {
-            width: 20px;
-            height: 20px;}
-         .field{
-
-          width: 520px;
-            height: 520px;}
-
-
-}
-@media (max-width: 992px){
-    #allGame{
-max-width: 650px;
-    }
-    .menu{
-        font-size: 16px;
-    }
-    button{
-        font-size: 16px; 
-        width: 100px;
-        height: 30px;
-    }
-    .pixel {
-        width: 30px;
-        height: 30px;}
-        .car {
-            width: 15px;
-            height: 15px;}
-         .field{
-
-          width: 390px;
-            height: 390px;}
-    
-} */
 @media (max-height: 450px){ /*только для устройств с высотой области просмотра не более 450px*/
     #allGame{
         max-width: 650px;
@@ -231,5 +181,8 @@ max-width: 650px;
         font-size: 16px; 
         width: 100px;
         height: 30px;
+        }
+    .left{
+        background-position: -4.4px -0.7px;
         }
     }
