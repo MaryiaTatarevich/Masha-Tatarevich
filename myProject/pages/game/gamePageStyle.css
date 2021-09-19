@@ -214,14 +214,21 @@ max-width: 650px;
     #allGame{
         max-width: 650px;
             }
-            .pixel {
-                width: 25px;
-                height: 25px;}
-                .car {
-                    width: 12.5px;
-                    height: 12.5px;}
-                 .field{
-        
-                  width: 325px;
-                    height: 325px;}   
+    .pixel {
+        width: 20px;
+        height: 20px;}
+    .car {
+        width: 10px;
+        height: 10px;}
+    .field{
+        width: 260px;
+        height: 260px;}   
+        }
+    .menu{
+        font-size: 16px;
+        }
+    button{
+        font-size: 16px; 
+        width: 100px;
+        height: 30px;
         }
