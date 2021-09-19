@@ -8,7 +8,7 @@ let carNumber
 //начальные координаты каждой машинки posX = 7; posY = 12
 let posXStart = 7;
 let posYStart = 12;
-let windowWidth
+
 let startPixel
 let createNewCar = true
 let startNewCar
@@ -84,13 +84,19 @@ function compareScore(a, b) {
 }
 //Загрузка страницы игры
 function gamePageLoading() {
-    //получаем текущие размеры окна браузера
-    windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    console.log(windowHeight)
+    //Отслеживание изменения ориентации
+    window.addEventListener("orientationchange", function () {
+        windowHeight = window.innerHeight;
+        console.log(windowHeight)
+    })
+
+
     //обнуляем результаты 
     myScore = 0;
     myLives = 5;
 
-    console.log(windowWidth)
 
     let findGame = document.getElementById('allGame');
     if (!findGame) {
@@ -100,10 +106,26 @@ function gamePageLoading() {
         creationGameArea()
     }
     if (timer) {
-        clearInterval(timer)
-        move()
+        clearInterval(timer);
+        if (windowHeight <= 450) {
+            timer = setInterval(game, 100);
+            move()
+            console.log('100')
+        } else {
+            timer = setInterval(game, 40);
+            move()
+            console.log('40')
+        }
     } else {
-        move()
+        if (windowHeight <= 450) {
+            timer = setInterval(game, 100);
+            move()
+            console.log('100')
+        } else {
+            timer = setInterval(game, 40);
+            move()
+            console.log('40')
+        }
     }
 }
 //функция создания области игры 
@@ -241,21 +263,33 @@ function createCar(carNumber) {
 }
 //Ф-ция вызова движения машинок и создания новых; 
 function game() {
-    let findGame = document.getElementById('allGame')
+    let findGame = document.getElementById('allGame');
+    let windowHeight = window.innerHeight;
     if (findGame) {
         for (let i = 0; i < allCarsArray.length; i++) {
             let currentCellsExistence = document.getElementById(`currentPixel${i}`)
             if (currentCellsExistence)
                 carMove(i)
         }
+        if (windowHeight <= 450) {
+            if (startNewCar < 40) {
+                startNewCar++
 
-        if (startNewCar < 100) {
-            startNewCar++
+            } else if (startNewCar === 40 && createNewCar) {
+                carNumber++
+                createCar(carNumber)
+                startNewCar = 0
+            }
+        } else {
+            if (startNewCar < 100) {
+                startNewCar++
 
-        } else if (startNewCar === 100 && createNewCar) {
-            carNumber++
-            createCar(carNumber)
-            startNewCar = 0
+            } else if (startNewCar === 100 && createNewCar) {
+                carNumber++
+                createCar(carNumber)
+                startNewCar = 0
+            }
+
         }
     } else return
 }
@@ -454,6 +488,7 @@ function carMove(carNumber) {
 }
 //Функция остановки игры (кнопка паузы)
 function stopGame() {
+    let windowHeight = window.innerHeight;
     if (gameSituation) {
         clearInterval(timer)
         gameSituation = false
@@ -464,8 +499,11 @@ function stopGame() {
     } else if (myLives !== 0) {
         if (timer) {
             clearInterval(timer)
+        } if (windowHeight <= 450) {
+            timer = setInterval(game, 100)
+        } else {
+            timer = setInterval(game, 40)
         }
-        timer = setInterval(game, 40)
         gameSituation = true
         pause.innerHTML = 'Pause'
     }
@@ -504,7 +542,7 @@ function move() {
     carNumber = 0;
     createCar(carNumber);
 
-    timer = setInterval(game, 40);
+    // timer = setInterval(game, 40);
 
     startNewCar = 0
 
@@ -578,3 +616,4 @@ function makeChanges(number) {
 // } else if (window.innerWidth>=1050){
 //     x=1;y=1;
 // }
+
