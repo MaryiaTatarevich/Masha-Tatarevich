@@ -181,7 +181,7 @@ function creationGameArea() {
         pixel[i].setAttribute('posY', y);
         x++
     }
-    //создаем массив с дополнительными классами window.innerWidth
+    //создаем массив с дополнительными классами 
     let array = [
         ['b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'],
         ['b', 'i', 'i', 'i', 'i', 'i', '4', 'i', 'i', 'i', 'i', 'i', 'b'],
