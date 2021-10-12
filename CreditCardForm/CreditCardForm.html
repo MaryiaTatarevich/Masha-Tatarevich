@@ -180,7 +180,7 @@
             { label: 'CVV', type: 'password', id: 'cvv', name: 'cvv', placeholder: '···' },
             { label: 'Zip Code', type: 'number', id: 'zipcode', name: 'zip_code', placeholder: '90210' }
         ];
-        function dataEntryForm(array) {
+        (function dataEntryForm(array) {
             const form = document.createElement('form');
             const div = document.createElement('div');
             div.setAttribute('class', 'header');
@@ -224,14 +224,18 @@
             form.appendChild(input);
             form.appendChild(paragraph);
             form.addEventListener('submit', displayInformation);
-        }
-        dataEntryForm(form);
+        })(form)
+        
+
         const creditCardNum = document.getElementById('ccn');
         creditCardNum.addEventListener('input', formatCardNum);
+        
         const expDate = document.getElementById('expdate');
         expDate.addEventListener('input', formatExpDate);
+        
         const cvv = document.getElementById('cvv');
         cvv.addEventListener('input', formatCVV);
+        
         function formatCardNum() {
             let cardNum = this.value.replace(/[^\d]/g, '').substr(0, 16);
             cardNum = cardNum != '' ? cardNum.match(/.{1,4}/g).join(' ') : '';
